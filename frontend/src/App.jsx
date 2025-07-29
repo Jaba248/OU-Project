@@ -2,15 +2,19 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+// Page component imports
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import DashboardPage from "./pages/Dashboard";
 
 function App() {
   return (
     <Router>
       <div>
         <Routes>
-          <Route path="/login" element={} />
-          <Route path="/register" element={} />
-          <Route path="/" element={} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<DashboardPage />} />
         </Routes>
       </div>
     </Router>
