@@ -1,5 +1,6 @@
 asgiref==3.9.1
 Django==5.2.4
+django-cors-headers==4.7.0
 django-graphql-jwt==0.4.0
 graphene==3.4.3
 graphene-django==3.2.3

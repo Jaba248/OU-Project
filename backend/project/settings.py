@@ -26,7 +26,10 @@ SECRET_KEY = "django-insecure-$mgd++^k!)f&0u*^q1zhdg8k@n_&qxro!)-vnpttraoy)n1=i&
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", # Vite's default port
+    "http://127.0.0.1:5173", # include direct local ip
+]
 
 # Application definition
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed Modules
     "graphene_django",
+    'corsheaders',
     # Project Apps
     "api",
 ]
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
