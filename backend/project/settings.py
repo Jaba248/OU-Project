@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Installed Modules
+    "graphene_django",
+    # Project Apps
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 GRAPHENE = {
-    "SCHEMA": "prokect.schema.schema",
+    "SCHEMA": "project.schema.schema",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
