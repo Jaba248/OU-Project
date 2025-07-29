@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          {/* todo create generic landing page, and block non logged in users access to dashboard */}
           <Route path="/" element={<DashboardPage />} />
         </Routes>
       </div>
