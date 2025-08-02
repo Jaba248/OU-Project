@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_PROJECTS, GET_ALL_CLIENTS } from "../graphql/queries";
 import ProjectList from "../components/ProjectList";
 import CreateProjectModal from "../components/CreateProjectModal";
+import { Link } from "react-router";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,9 +23,17 @@ const Dashboard = () => {
     return <p className="p-8">Loading...</p>;
   if (projectsError)
     return (
-      <p className="p-8 text-red-500">
-        Error fetching projects: {projectsError.message}
-      </p>
+      <>
+        <p className="p-8 text-red-500">
+          Error fetching projects: {projectsError.message}
+        </p>
+        <div>
+          <Link to="/login">Login</Link>
+        </div>
+        <div>
+          <Link to="/register">Register</Link>
+        </div>
+      </>
     );
   if (clientsError)
     return (

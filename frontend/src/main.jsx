@@ -16,7 +16,7 @@ const httpLink = createHttpLink({
   uri: "http://localhost:8000/graphql",
 });
 
-// Add our jwt token when the link is initiated, so it is attached to every call
+// Add jwt token when the link is initiated, so it is attached to every call
 const authLink = setContext((_, { headers }) => {
   // Get the authentication token from local storage if it exists
   const token = localStorage.getItem("authToken");
