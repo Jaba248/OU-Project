@@ -9,25 +9,32 @@
 16/06/2025
 -- Completed and submitted TMA02 report.
 
-29/06/2025
+06/07/2025
 -- Initialised local Git repository for version control.
-(Corresponds to Git commit 43c9d1f)
-
-10/07/2025
--- Analysed TMA02 feedback to create a detailed action plan for TMA03.
--- Focused on deep design work: created flowcharts for user authentication and invoicing; designed the full API structure.
 
 15/07/2025
--- Assessed that all design, planning, and report-drafting was ~70% complete. Emailed tutor to provide a progress update and request an extension for the implementation phase.
+-- Assessed design/planning phase as ~70% complete. Emailed tutor to request an extension for the implementation sprint.
 
 22/07/2025
--- Began practical implementation based on the finalised designs.
--- Set up the base Django project and installed initial dependencies including Graphene for GraphQL.
-(Corresponds to Git commits 9828ce7 and 712a0db)
+-- Began practical implementation. Set up base Django project and installed initial dependencies.
 
 29/07/2025
--- Started intensive coding sprint to implement the designed features.
--- Configured Django settings, middleware, and authentication backends.
--- Implemented the complete GraphQL schema with full CRUD operations for all models.
-(Corresponds to Git commits 35e4678, e46338a, and 16966c6)
--- Initialized the React frontend project using Vite and configured Tailwind CSS for styling.
+-- Intensive Coding Sprint:
+-- Configured Django project settings, middleware, and authentication backends.
+-- Implemented the complete GraphQL schema with full CRUD operations for all core models.
+-- Initialized the React frontend project using Vite and configured Tailwind CSS.
+-- Built and tested frontend UI for user registration and login.
+
+30/07/2025
+-- Continued frontend development.
+-- Built the main dashboard UI to fetch and display projects and clients from the backend API.
+-- Implemented the modal form to create new projects.
+
+01/08/2025
+-- Fixed critical workflow flaw by adding an inline "Add Client" feature to the project creation modal.
+-- Focused on creating visual charts etc for the report. Completed the Entity-Relationship Diagram (ERD).
+
+02/08/2025 (Today)
+-- Completed the User Authentication Flowchart.
+-- Wrote the final draft of the Project Work and Reflection sections of the TMA03 report.
+-- Assembled all appendices and performed final review.
