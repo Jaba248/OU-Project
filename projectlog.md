@@ -49,4 +49,4 @@
 --- Implemented Global Authentication, using react context, created a ProtectedRoute to ensure only authorised users can access the dashboard
 --- Create a landing page
 
----
+--- Had to reset repository as icloud drive did not sync my first 2 commits
