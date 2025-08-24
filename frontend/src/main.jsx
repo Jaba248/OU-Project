@@ -11,6 +11,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
+import { AuthProvider } from "./context/AuthContext.jsx";
+
 // Create link to connect to our backend api
 const httpLink = createHttpLink({
   uri: "http://localhost:8000/graphql",
@@ -37,8 +39,10 @@ const client = new ApolloClient({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <AuthProvider>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </AuthProvider>
   </StrictMode>
 );
