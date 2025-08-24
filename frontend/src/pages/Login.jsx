@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LOGIN_MUTATION = gql`
   mutation TokenAuth($username: String!, $password: String!) {
@@ -13,6 +14,7 @@ const LOGIN_MUTATION = gql`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login: authLogin } = useAuth();
   const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
