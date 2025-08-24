@@ -11,7 +11,6 @@ function App() {
   return (
     <Router>
       <div>
-        sssss
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
