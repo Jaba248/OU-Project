@@ -41,3 +41,7 @@
 
 05/08/2025
 -- Finalised and submitted TMA03 report, including all diagrams, appendices, and evidence of the functional core application.
+
+24/08/2025
+-- Reviewed TMA03 feedback and created a plan to meet all the criteria, and reach a final endpoint and completion for the project
+-- Begin final Coding session to complete the application side.
