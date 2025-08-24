@@ -34,7 +34,10 @@
 -- Fixed critical workflow flaw by adding an inline "Add Client" feature to the project creation modal.
 -- Focused on creating visual charts etc for the report. Completed the Entity-Relationship Diagram (ERD).
 
-02/08/2025 (Today)
+02/08/2025
 -- Completed the User Authentication Flowchart.
 -- Wrote the final draft of the Project Work and Reflection sections of the TMA03 report.
 -- Assembled all appendices and performed final review.
+
+05/08/2025
+-- Finalised and submitted TMA03 report, including all diagrams, appendices, and evidence of the functional core application.
