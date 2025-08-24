@@ -16,9 +16,9 @@ const Login = () => {
   const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
-      // store token
-      localStorage.setItem("authToken", data.tokenAuth.token);
-      navigate("/"); // Redirect to dashboard on successful login
+      const token = data.tokenAuth.token;
+      authLogin(token); // store token
+      navigate("/dashboard/"); // Redirect to dashboard on successful login
     },
   });
 
