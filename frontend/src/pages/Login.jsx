@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const LOGIN_MUTATION = gql`
@@ -14,7 +14,7 @@ const LOGIN_MUTATION = gql`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login: authLogin } = useAuth();
+  const { login: authLogin, isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
@@ -28,6 +28,9 @@ const Login = () => {
     e.preventDefault();
     login({ variables: { username, password } });
   };
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard/" />;
+  }
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <form

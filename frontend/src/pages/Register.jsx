@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const CREATE_USER_MUTATION = gql`
   mutation CreateUser($username: String!, $email: String!, $password: String!) {
@@ -17,7 +18,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const { isLoggedIn } = useAuth();
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
     onCompleted: () => {
       navigate("/login"); // Redirect to login after successful registration
@@ -28,6 +29,9 @@ const Register = () => {
     e.preventDefault();
     createUser({ variables: { username, email, password } });
   };
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard/" />;
+  }
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <form

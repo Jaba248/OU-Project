@@ -45,8 +45,9 @@
 24/08/2025
 -- Reviewed TMA03 feedback and created a plan to meet all the criteria, and reach a final endpoint and completion for the project
 -- Begin final Coding session to complete the application side.
+
 -- Developemnt:
 --- Implemented Global Authentication, using react context, created a ProtectedRoute to ensure only authorised users can access the dashboard
 --- Create a landing page
-
 --- Had to reset repository as icloud drive did not sync my first 2 commits
+--- If user is already logged in and try to access register or login page force them to the dashboard
