@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { GET_ALL_PROJECTS, GET_ALL_CLIENTS } from "../graphql/queries";
 import {
   CREATE_CLIENT_MUTATION,
   CREATE_PROJECT_MUTATION,
+  UPDATE_PROJECT_MUTATION,
 } from "../graphql/mutations";
 
-const CreateProjectModal = ({ isOpen, onClose, clients }) => {
+const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
+  // Check if we are in edit mode
+  const isEditMode = !!projectToEdit;
   // Project form state
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -15,10 +18,29 @@ const CreateProjectModal = ({ isOpen, onClose, clients }) => {
   const [showAddClient, setShowAddClient] = useState(false);
   const [newClientName, setNewClientName] = useState("");
   const [newClientEmail, setNewClientEmail] = useState("");
-
+  // UseEffect to prefill form on edit mode
+  useEffect(() => {
+    if (isEditMode && projectToEdit) {
+      setName(projectToEdit.name);
+      setStartDate(projectToEdit.startDate);
+      setClientId(projectToEdit.client.id);
+    } else {
+      // Reset form when opening in create mode
+      setName("");
+      setStartDate("");
+      setClientId("");
+    }
+  }, [projectToEdit, isEditMode, isOpen]);
   // Mutation for creating a project
-  const [createProject, { loading: projectLoading, error: projectError }] =
+  const [createProject, { loading: createLoading, error: createError }] =
     useMutation(CREATE_PROJECT_MUTATION, {
+      refetchQueries: [{ query: GET_ALL_PROJECTS }],
+      onCompleted: onClose,
+    });
+
+  // Mutation for editing a project
+  const [updateProject, { loading: updateLoading, error: updateError }] =
+    useMutation(UPDATE_PROJECT_MUTATION, {
       refetchQueries: [{ query: GET_ALL_PROJECTS }],
       onCompleted: onClose,
     });
@@ -40,7 +62,12 @@ const CreateProjectModal = ({ isOpen, onClose, clients }) => {
       alert("Please select a client.");
       return;
     }
-    createProject({ variables: { name, startDate, clientId } });
+    const variables = { name, startDate, clientId };
+    if (isEditMode) {
+      updateProject({ variables: { id: projectToEdit.id, ...variables } });
+    } else {
+      createProject({ variables });
+    }
   };
 
   // Handle new client form
@@ -50,11 +77,14 @@ const CreateProjectModal = ({ isOpen, onClose, clients }) => {
   };
 
   if (!isOpen) return null;
-
+  const loading = createLoading || updateLoading;
+  const error = createError || updateError;
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
       <div className="relative mx-auto p-8 border w-full max-w-md shadow-lg rounded-md bg-white">
-        <h3 className="text-2xl font-bold mb-4">Create New Project</h3>
+        <h3 className="text-2xl font-bold mb-4">
+          {isEditMode ? "Edit Project" : "Create New Project"}
+        </h3>
         <form onSubmit={handleProjectSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Project Name</label>
@@ -163,15 +193,17 @@ const CreateProjectModal = ({ isOpen, onClose, clients }) => {
             </button>
             <button
               type="submit"
-              disabled={projectLoading}
+              disabled={loading}
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
-              {projectLoading ? "Creating..." : "Create Project"}
+              {loading
+                ? "Saving..."
+                : isEditMode
+                ? "Save Changes"
+                : "Create Project"}
             </button>
           </div>
-          {projectError && (
-            <p className="mt-4 text-red-500">Error: {projectError.message}</p>
-          )}
+          {error && <p className="mt-4 text-red-500">Error: {error.message}</p>}
         </form>
       </div>
     </div>
