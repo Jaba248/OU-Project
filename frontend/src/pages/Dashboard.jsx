@@ -7,7 +7,8 @@ import { Link } from "react-router";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [editingProject, setEditingProject] = useState(null); // Track edit project
+  // Query Hooks
   const {
     loading: projectsLoading,
     error: projectsError,
@@ -18,6 +19,24 @@ const Dashboard = () => {
     error: clientsError,
     data: clientsData,
   } = useQuery(GET_ALL_CLIENTS);
+  // End Query Hooks
+  // Helper Functions
+  // Open Modal in edit mode
+  const handleEditProject = (project) => {
+    setEditingProject(project);
+    setIsModalOpen(true);
+  };
+  // Open modal in create mode
+  const handleCreateProject = () => {
+    setEditingProject(null); // Reset Edit mode
+    setIsModalOpen(true);
+  };
+  // Close modal and clear state
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingProject(null);
+  };
+  // End Helper Functions
 
   if (projectsLoading || clientsLoading)
     return <p className="p-8">Loading...</p>;
