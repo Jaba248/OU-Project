@@ -111,7 +111,8 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
           <div className="mb-6">
             <div className="flex justify-between items-center">
               <label className="block text-gray-700">Client</label>
-              {!showAddClient && (
+              {/* Hide add client button when form is active, or is edit mode */}
+              {!showAddClient && !isEditMode && (
                 <button
                   type="button"
                   onClick={() => setShowAddClient(true)}
@@ -128,6 +129,7 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
                 onChange={(e) => setClientId(e.target.value)}
                 className="w-full px-3 py-2 border rounded mt-1"
                 required
+                disabled={isEditMode} // Disable on edit mode, is clients cant be changed has to be deleted
               >
                 <option value="" disabled>
                   Select a client
