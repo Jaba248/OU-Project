@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProjectList = ({ projects }) => {
+const ProjectList = ({ projects, onEdit }) => {
   if (!projects || projects.length === 0) {
     return <p>No projects found. Add one to get started!</p>;
   }
@@ -35,7 +35,10 @@ const ProjectList = ({ projects }) => {
                 {project.startDate}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button className="text-indigo-600 hover:text-indigo-900 mr-4">
+                <button
+                  className="text-indigo-600 hover:text-indigo-900 mr-4"
+                  onClick={() => onEdit(project)}
+                >
                   Edit
                 </button>
                 <button className="text-red-600 hover:text-red-900">
