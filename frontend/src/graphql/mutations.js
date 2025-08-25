@@ -11,6 +11,7 @@ export const CREATE_CLIENT_MUTATION = gql`
   }
 `;
 
+// Project Mutations
 export const CREATE_PROJECT_MUTATION = gql`
   mutation CreateProject($name: String!, $startDate: Date!, $clientId: ID!) {
     createProject(name: $name, startDate: $startDate, clientId: $clientId) {
@@ -21,3 +22,23 @@ export const CREATE_PROJECT_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_PROJECT_MUTATION = gql`
+  mutation UpdateProject($id: ID!, $name: String, $startDate: Date) {
+    updateProject(id: $id, name: $name, startDate: $startDate) {
+      project {
+        id
+        name
+        startDate
+      }
+    }
+  }
+`;
+export const DELETE_PROJECT_MUTATION = gql`
+  mutation DeleteProject($id: ID!) {
+    deleteProject(id: $id) {
+      ok
+    }
+  }
+`;
+// End Project Mutations
