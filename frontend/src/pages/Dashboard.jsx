@@ -66,19 +66,23 @@ const Dashboard = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleCreateProject}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           + New Project
         </button>
       </div>
 
-      <ProjectList projects={projectsData.allProjects} />
+      <ProjectList
+        projects={projectsData.allProjects}
+        onEdit={handleEditProject}
+      />
 
       <CreateProjectModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleCloseModal}
         clients={clientsData.allClients}
+        projectToEdit={editingProject}
       />
     </div>
   );
