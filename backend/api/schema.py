@@ -7,29 +7,35 @@ from .models import Client, Project, Task
 #  Type Definitions
 # =================================================================
 
+
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "email")
 
+
 class ClientType(DjangoObjectType):
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = "__all__"
+
 
 class ProjectType(DjangoObjectType):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = "__all__"
+
 
 class TaskType(DjangoObjectType):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = "__all__"
+
 
 # =================================================================
 #  Queries (Read Operations)
 # =================================================================
+
 
 class Query(graphene.ObjectType):
     # Fetch lists of items
@@ -64,17 +70,21 @@ class Query(graphene.ObjectType):
             raise Exception("Authentication required!")
         return Project.objects.get(pk=id, client__user=user)
 
+
 # =================================================================
 #  Mutations (Create, Update, Delete Operations)
 # =================================================================
 
+
 # --- User Mutations ---
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
+
     class Arguments:
         username = graphene.String(required=True)
         password = graphene.String(required=True)
         email = graphene.String(required=True)
+
     def mutate(self, info, username, password, email):
         #  todo raise more specific errors for, email already exists, username already exists, password not secure enough
         user = get_user_model()(username=username, email=email)
@@ -82,120 +92,164 @@ class CreateUser(graphene.Mutation):
         user.save()
         return CreateUser(user=user)
 
+
 # --- Client Mutations ---
 class CreateClient(graphene.Mutation):
     client = graphene.Field(ClientType)
+
     class Arguments:
         name = graphene.String(required=True)
         email = graphene.String(required=True)
+
     def mutate(self, info, name, email):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         client = Client(name=name, email=email, user=user)
         client.save()
         return CreateClient(client=client)
 
+
 class UpdateClient(graphene.Mutation):
     client = graphene.Field(ClientType)
+
     class Arguments:
         id = graphene.ID(required=True)
         name = graphene.String()
         email = graphene.String()
+
     def mutate(self, info, id, name=None, email=None):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         client = Client.objects.get(pk=id, user=user)
-        if name: client.name = name
-        if email: client.email = email
+        if name:
+            client.name = name
+        if email:
+            client.email = email
         client.save()
         return UpdateClient(client=client)
 
+
 class DeleteClient(graphene.Mutation):
     ok = graphene.Boolean()
+
     class Arguments:
         id = graphene.ID(required=True)
+
     def mutate(self, info, id):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         client = Client.objects.get(pk=id, user=user)
         client.delete()
         return DeleteClient(ok=True)
 
+
 # --- Project Mutations ---
 class CreateProject(graphene.Mutation):
     project = graphene.Field(ProjectType)
+
     class Arguments:
         client_id = graphene.ID(required=True)
         name = graphene.String(required=True)
         start_date = graphene.Date(required=True)
+
     def mutate(self, info, client_id, name, start_date):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         client = Client.objects.get(pk=client_id, user=user)
         project = Project(client=client, name=name, start_date=start_date)
         project.save()
         return CreateProject(project=project)
 
+
 class UpdateProject(graphene.Mutation):
     project = graphene.Field(ProjectType)
+
     class Arguments:
         id = graphene.ID(required=True)
         name = graphene.String()
-    def mutate(self, info, id, name=None):
+        start_date = graphene.Date(required=True)
+
+    def mutate(self, info, id, name=None,start_date=None):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         project = Project.objects.get(pk=id, client__user=user)
-        if name: project.name = name
+        if name:
+            project.name = name
+        if start_date:
+            project.start_date=start_date
         project.save()
         return UpdateProject(project=project)
 
+
 class DeleteProject(graphene.Mutation):
     ok = graphene.Boolean()
+
     class Arguments:
         id = graphene.ID(required=True)
+
     def mutate(self, info, id):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         project = Project.objects.get(pk=id, client__user=user)
         project.delete()
         return DeleteProject(ok=True)
 
+
 # --- Task Mutations ---
 class CreateTask(graphene.Mutation):
     task = graphene.Field(TaskType)
+
     class Arguments:
         project_id = graphene.ID(required=True)
         title = graphene.String(required=True)
+
     def mutate(self, info, project_id, title):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         project = Project.objects.get(pk=project_id, client__user=user)
         task = Task(project=project, title=title)
         task.save()
         return CreateTask(task=task)
 
+
 class UpdateTask(graphene.Mutation):
     task = graphene.Field(TaskType)
+
     class Arguments:
         id = graphene.ID(required=True)
         title = graphene.String()
         is_completed = graphene.Boolean()
+
     def mutate(self, info, id, title=None, is_completed=None):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         task = Task.objects.get(pk=id, project__client__user=user)
-        if title: task.title = title
-        if is_completed is not None: task.is_completed = is_completed
+        if title:
+            task.title = title
+        if is_completed is not None:
+            task.is_completed = is_completed
         task.save()
         return UpdateTask(task=task)
 
+
 class DeleteTask(graphene.Mutation):
     ok = graphene.Boolean()
+
     class Arguments:
         id = graphene.ID(required=True)
+
     def mutate(self, info, id):
         user = info.context.user
-        if not user.is_authenticated: raise Exception("Authentication required!")
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
         task = Task.objects.get(pk=id, project__client__user=user)
         task.delete()
         return DeleteTask(ok=True)
@@ -204,6 +258,7 @@ class DeleteTask(graphene.Mutation):
 # =================================================================
 #  Main Mutation Class Registration
 # =================================================================
+
 
 class Mutation(graphene.ObjectType):
     # User
