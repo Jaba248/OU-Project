@@ -1,10 +1,27 @@
 import React from "react";
-
+import { useMutation } from "@apollo/client";
+import { DELETE_PROJECT_MUTATION } from "../graphql/mutations";
+import { GET_ALL_PROJECTS } from "../graphql/queries";
 const ProjectList = ({ projects, onEdit }) => {
+  const [deleteProject, { loading, error }] = useMutation(
+    DELETE_PROJECT_MUTATION,
+    {
+      refetchQueries: [{ query: GET_ALL_PROJECTS }], // Used to refresh the list after completion
+    }
+  );
+  // Delete Handle Function
+  const handleDelete = (projectId) => {
+    // Use a  browser confirm dialog before deleting
+    if (window.confirm("Are you sure you want to delete this project?")) {
+      deleteProject({ variables: { id: projectId } });
+    }
+  };
+
   if (!projects || projects.length === 0) {
     return <p>No projects found. Add one to get started!</p>;
   }
-
+  if (loading) return <p>Deleting...</p>;
+  if (error) return <p>Error deleting project: {error.message}</p>; // should never be triggered
   return (
     <div className="bg-white shadow rounded-lg overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -41,7 +58,12 @@ const ProjectList = ({ projects, onEdit }) => {
                 >
                   Edit
                 </button>
-                <button className="text-red-600 hover:text-red-900">
+                <button
+                  className="text-red-600 hover:text-red-900"
+                  onClick={() => {
+                    handleDelete(project.id);
+                  }}
+                >
                   Delete
                 </button>
               </td>
