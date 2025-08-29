@@ -24,7 +24,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 `;
 
 export const UPDATE_PROJECT_MUTATION = gql`
-  mutation UpdateProject($id: ID!, $name: String, $startDate: Date)! {
+  mutation UpdateProject($id: ID!, $name: String, $startDate: Date!) {
     updateProject(id: $id, name: $name, startDate: $startDate) {
       project {
         id
