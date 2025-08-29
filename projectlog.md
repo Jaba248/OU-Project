@@ -51,3 +51,8 @@
 --- Create a landing page
 --- Had to reset repository as icloud drive did not sync my first 2 commits
 --- If user is already logged in and try to access register or login page force them to the dashboard
+--- Implement Update Project Functionality
+
+29/08/2025
+-- Change Home Page Buttons to access dashbaord when the user is logged in, rather than login buttons
+-- Implement the Delete Project Functionality
