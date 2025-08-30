@@ -142,8 +142,7 @@ class DeleteClient(graphene.Mutation):
         if not user.is_authenticated:
             raise Exception("Authentication required!")
         client = Client.objects.get(pk=id, user=user)
-        if client.get_projects().first() is not None:
-            raise Exception("Please delete all projects first.")
+        client.get_projects().delete()
         client.delete()
         return DeleteClient(ok=True)
 
