@@ -46,7 +46,7 @@ const ProjectList = ({ projects, onEdit }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {projects.map((project) => (
             <tr key={project.id}>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap text-left">
                 <Link
                   to={`/dashboard/project/${project.id}`}
                   className="text-blue-600 hover:text-blue-800 hover:underline"
@@ -54,10 +54,10 @@ const ProjectList = ({ projects, onEdit }) => {
                   {project.name}
                 </Link>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap text-left">
                 {project.client.name}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap text-left">
                 {project.startDate}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
