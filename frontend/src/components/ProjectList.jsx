@@ -48,7 +48,7 @@ const ProjectList = ({ projects, onEdit }) => {
             <tr key={project.id}>
               <td className="px-6 py-4 whitespace-nowrap text-left">
                 <Link
-                  to={`/dashboard/project/${project.id}`}
+                  to={`/dashboard/clients/{client.id}/${project.id}`}
                   className="text-blue-600 hover:text-blue-800 hover:underline"
                 >
                   {project.name}

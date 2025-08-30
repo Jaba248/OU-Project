@@ -56,3 +56,6 @@
 29/08/2025
 -- Change Home Page Buttons to access dashbaord when the user is logged in, rather than login buttons
 -- Implement the Delete Project Functionality
+
+30/08/2025
+-- Create Project Details Page + Task Management CRUD
