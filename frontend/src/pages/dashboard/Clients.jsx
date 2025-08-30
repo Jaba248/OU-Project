@@ -1,11 +1,24 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_ALL_CLIENTS } from "../../graphql/queries";
+import { DELETE_CLIENT_MUTATION } from "../../graphql/mutations";
 import CreateClientModal from "../../components/CreateClientModal";
 
 const Clients = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, error, data } = useQuery(GET_ALL_CLIENTS);
+  const [deleteClient] = useMutation(DELETE_CLIENT_MUTATION, {
+    refetchQueries: [{ query: GET_ALL_CLIENTS }], // Refetch the list after deleting
+  });
+  const handleDelete = (clientId) => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this client? This will also delete all their projects."
+      )
+    ) {
+      deleteClient({ variables: { id: clientId } });
+    }
+  };
 
   if (loading) return <p className="p-8">Loading clients...</p>;
   if (error) return <p className="p-8 text-red-500">Error: {error.message}</p>;
@@ -50,7 +63,10 @@ const Clients = () => {
                       {client.email}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-red-600 hover:text-red-900">
+                      <button
+                        className="text-red-600 hover:text-red-900"
+                        onClick={() => handleDelete(client.id)}
+                      >
                         Delete
                       </button>
                     </td>
