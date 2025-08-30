@@ -4,8 +4,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 // Page component imports
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
-import DashboardPage from "./pages/Dashboard";
 import LandingPage from "./pages/Landing";
+import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             path="/dashboard/"
             element={
               <ProtectedRoute>
-                <DashboardPage />
+                <DashboardLayout />
               </ProtectedRoute>
             }
           />
