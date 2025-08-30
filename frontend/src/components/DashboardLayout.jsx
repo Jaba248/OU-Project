@@ -20,6 +20,12 @@ const DashboardLayout = () => {
         </div>
         <nav className="flex-grow p-4 space-y-2">
           <Link
+            to="/dashboard/"
+            className="block px-4 py-2 rounded hover:bg-gray-700"
+          >
+            Overview
+          </Link>
+          <Link
             to="/dashboard/projects"
             className="block px-4 py-2 rounded hover:bg-gray-700"
           >

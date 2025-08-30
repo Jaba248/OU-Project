@@ -5,16 +5,19 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import LandingPage from "./pages/Landing";
-import DashboardLayout from "./components/DashboardLayout";
+// Dashboard Imports
+import DashboardLayout from "./components/DashboardLayout"; // Layout
+import DashboardLandingPage from "./pages/dashboard/Dashboard";
 import ProjectsPage from "./pages/dashboard/Projects";
 import ProjectDetailPage from "./pages/dashboard/ProjectDetail";
 import ClientsPage from "./pages/dashboard/Clients";
+
 function App() {
   return (
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route index element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           {/* Dashboard route only allows logged in users */}
@@ -26,7 +29,8 @@ function App() {
               </ProtectedRoute>
             }
           >
-            {/* These are the "child" pages that render inside the layout */}
+            {/* These are the pages that render inside the outlet component, inside dashboardlayout */}
+            <Route index element={<DashboardLandingPage />} />
             <Route path="projects" element={<ProjectsPage />} />
             <Route path="projects/:id" element={<ProjectDetailPage />} />
             <Route path="clients" element={<ClientsPage />} />
