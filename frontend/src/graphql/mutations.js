@@ -56,12 +56,14 @@ export const CREATE_TASK_MUTATION = gql`
     $projectId: ID!
     $title: String!
     $description: String
+    $startDate: :Date
     $dueDate: Date
   ) {
     createTask(
       projectId: $projectId
       title: $title
       description: $description
+      startDate: $startDate
       dueDate: $dueDate
     ) {
       task {
