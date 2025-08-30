@@ -49,3 +49,58 @@ export const DELETE_PROJECT_MUTATION = gql`
   }
 `;
 // End Project Mutations
+
+// Task Mutations
+export const CREATE_TASK_MUTATION = gql`
+  mutation CreateTask(
+    $projectId: ID!
+    $title: String!
+    $description: String
+    $dueDate: Date
+  ) {
+    createTask(
+      projectId: $projectId
+      title: $title
+      description: $description
+      dueDate: $dueDate
+    ) {
+      task {
+        id
+        title
+        description
+        dueDate
+        status
+      }
+    }
+  }
+`;
+
+export const UPDATE_TASK_MUTATION = gql`
+  mutation UpdateTask(
+    $id: ID!
+    $title: String
+    $description: String
+    $status: String
+    $startDate: Date
+    $dueDate: Date
+  ) {
+    updateTask(
+      id: $id
+      title: $title
+      description: $description
+      status: $status
+      startDate: $startDate
+      dueDate: $dueDate
+    ) {
+      task {
+        id
+        title
+        description
+        status
+        startDate
+        dueDate
+      }
+    }
+  }
+`;
+// End task Mutations
