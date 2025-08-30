@@ -39,7 +39,9 @@ export const GET_PROJECT_BY_ID = gql`
       tasks {
         id
         title
-        isCompleted
+        description
+        dueDate
+        status
       }
     }
   }
