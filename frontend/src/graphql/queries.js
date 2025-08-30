@@ -5,6 +5,7 @@ export const GET_ALL_CLIENTS = gql`
     allClients {
       id
       name
+      email
     }
   }
 `;
@@ -18,6 +19,7 @@ export const GET_ALL_PROJECTS = gql`
       client {
         id
         name
+        email
       }
     }
   }

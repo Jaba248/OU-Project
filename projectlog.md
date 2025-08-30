@@ -58,5 +58,6 @@
 -- Implement the Delete Project Functionality
 
 30/08/2025
--- Create Dahsboard Layout
+-- Create Dahsboard Layout, Implement Side Navigation and top navigation, as Well as active nav link states for a more intuitive user Experience
+-- Create Clients List Page, with a separate create client modal, and delete functionality.
 -- Create Project Details Page + Task Management CRUD

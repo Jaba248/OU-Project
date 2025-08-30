@@ -6,6 +6,7 @@ export const CREATE_CLIENT_MUTATION = gql`
       client {
         id
         name
+        email
       }
     }
   }
