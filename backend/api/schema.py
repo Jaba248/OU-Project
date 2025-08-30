@@ -234,6 +234,8 @@ class UpdateTask(graphene.Mutation):
         title = graphene.String()
         description = graphene.String()
         status = graphene.String()
+        start_date = graphene.Date()
+        due_date = graphene.Date()
 
     def mutate(self, info, id, **kwargs):
         user = info.context.user
