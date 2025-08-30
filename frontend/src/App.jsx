@@ -17,7 +17,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           {/* Dashboard route only allows logged in users */}
           <Route
-            path="/dashboard/"
+            path="/dashboard/*"
             element={
               <ProtectedRoute>
                 <DashboardLayout />
