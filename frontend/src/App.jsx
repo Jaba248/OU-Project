@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 // Page component imports
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";

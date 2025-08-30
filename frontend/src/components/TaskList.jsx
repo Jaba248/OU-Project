@@ -1,6 +1,18 @@
 import React from "react";
+import { useMutation } from "@apollo/client";
+import { UPDATE_TASK_MUTATION } from "../graphql/mutations";
+import { GET_PROJECT_BY_ID } from "../graphql/queries";
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, projectId, onEdit }) => {
+  const [updateTask] = useMutation(UPDATE_TASK_MUTATION, {
+    refetchQueries: [
+      { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
+    ],
+  });
+  const handleStatusChange = (task) => {
+    const newStatus = task.status === "COMPLETED" ? "PENDING" : "COMPLETED";
+    updateTask({ variables: { id: task.id, status: newStatus } });
+  };
   if (!tasks || tasks.length === 0) {
     return (
       <p className="text-gray-500">
@@ -19,21 +31,42 @@ const TaskList = ({ tasks }) => {
           <div className="flex items-center">
             <input
               type="checkbox"
-              checked={task.isCompleted}
-              readOnly
-              className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              checked={task.status === "COMPLETED"}
+              onChange={() => handleStatusChange(task)}
+              className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
             />
+            <div className="ml-4">
+              <span
+                className={`text-lg ${
+                  task.status === "COMPLETED"
+                    ? "line-through text-gray-500"
+                    : "text-gray-900"
+                }`}
+              >
+                {task.title}
+              </span>
+              {task.dueDate && (
+                <p className="text-sm text-gray-500">Due: {task.dueDate}</p>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
             <span
-              className={`ml-3 text-lg ${
-                task.isCompleted
-                  ? "line-through text-gray-500"
-                  : "text-gray-900"
+              className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                task.status === "COMPLETED"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-gray-100 text-gray-800"
               }`}
             >
-              {task.title}
+              {task.status.replace("_", " ")}
             </span>
-          </div>
-          <div className="space-x-2">
+            {/* The Edit button now calls the onEdit function with the current task */}
+            <button
+              onClick={() => onEdit(task)}
+              className="text-sm text-indigo-600 hover:text-indigo-900"
+            >
+              Edit
+            </button>
             <button className="text-sm text-red-600 hover:text-red-900">
               Delete
             </button>
