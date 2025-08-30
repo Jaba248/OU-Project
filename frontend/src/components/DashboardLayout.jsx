@@ -26,7 +26,7 @@ const DashboardLayout = () => {
           Freelancer PMS
         </div>
         <nav className="flex-grow p-4 space-y-2">
-          <NavLink to="/dashboard/" className={navLinkClassName}>
+          <NavLink end to="/dashboard/" className={navLinkClassName}>
             Overview
           </NavLink>
           <NavLink to="/dashboard/projects" className={navLinkClassName}>
