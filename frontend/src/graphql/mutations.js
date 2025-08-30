@@ -11,7 +11,13 @@ export const CREATE_CLIENT_MUTATION = gql`
     }
   }
 `;
-
+export const DELETE_CLIENT_MUTATION = gql`
+  mutation DeleteClient($id: ID!) {
+    deleteClient(id: $id) {
+      ok
+    }
+  }
+`;
 // Project Mutations
 export const CREATE_PROJECT_MUTATION = gql`
   mutation CreateProject($name: String!, $startDate: Date!, $clientId: ID!) {

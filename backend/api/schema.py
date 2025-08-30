@@ -142,6 +142,8 @@ class DeleteClient(graphene.Mutation):
         if not user.is_authenticated:
             raise Exception("Authentication required!")
         client = Client.objects.get(pk=id, user=user)
+        if client.get_projects().first() is not None:
+            raise Exception("Please delete all projects first.")
         client.delete()
         return DeleteClient(ok=True)
 
@@ -173,7 +175,7 @@ class UpdateProject(graphene.Mutation):
         name = graphene.String()
         start_date = graphene.Date(required=True)
 
-    def mutate(self, info, id, name=None,start_date=None):
+    def mutate(self, info, id, name=None, start_date=None):
         user = info.context.user
         if not user.is_authenticated:
             raise Exception("Authentication required!")
@@ -181,7 +183,7 @@ class UpdateProject(graphene.Mutation):
         if name:
             project.name = name
         if start_date:
-            project.start_date=start_date
+            project.start_date = start_date
         project.save()
         return UpdateProject(project=project)
 
