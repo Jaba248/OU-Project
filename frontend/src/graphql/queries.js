@@ -24,3 +24,23 @@ export const GET_ALL_PROJECTS = gql`
     }
   }
 `;
+
+export const GET_PROJECT_BY_ID = gql`
+  query GetProjectById($id: Int!) {
+    projectById(id: $id) {
+      id
+      name
+      description
+      startDate
+      client {
+        id
+        name
+      }
+      tasks {
+        id
+        title
+        isCompleted
+      }
+    }
+  }
+`;
