@@ -60,7 +60,6 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
             >
               {task.status.replace("_", " ")}
             </span>
-            {/* The Edit button now calls the onEdit function with the current task */}
             <button
               onClick={() => onEdit(task)}
               className="text-sm text-indigo-600 hover:text-indigo-900"

@@ -15,7 +15,7 @@ const ProjectDetails = () => {
   const [taskToEdit, setTaskToEdit] = useState(null);
   const handleTaskOpenEditModal = (task) => {
     setTaskToEdit(task);
-    setIsEditModalOpen(true);
+    setIsTakEditModalOpen(true);
   };
   const handleCloseTaskEditModal = () => {
     setTaskToEdit(null);
@@ -59,7 +59,11 @@ const ProjectDetails = () => {
           <h2 className="text-2xl font-bold mb-4">Tasks</h2>
           <CreateTaskForm projectId={project.id} />
           <div className="mt-6">
-            <TaskList tasks={project.tasks} />
+            <TaskList
+              tasks={project.tasks}
+              projectId={project.id}
+              onEdit={handleTaskOpenEditModal}
+            />
           </div>
         </div>
       </div>
