@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_PROJECTS, GET_ALL_CLIENTS } from "../graphql/queries";
-import ProjectList from "../components/ProjectList";
-import CreateProjectModal from "../components/CreateProjectModal";
+import { GET_ALL_PROJECTS, GET_ALL_CLIENTS } from "../../graphql/queries";
+import ProjectList from "../../components/ProjectList";
+import CreateProjectModal from "../../components/CreateProjectModal";
 import { Link } from "react-router";
 
 const Dashboard = () => {

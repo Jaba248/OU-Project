@@ -63,6 +63,7 @@ const DashboardLayout = () => {
         </header>
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <Outlet />
+          {/* Will be used by the parent route to attach the correct page content */}
         </main>
       </div>
     </div>
