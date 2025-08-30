@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_MUTATION } from "../graphql/mutations";
 import { GET_ALL_PROJECTS } from "../graphql/queries";
+
 const ProjectList = ({ projects, onEdit }) => {
   const [deleteProject, { loading, error }] = useMutation(
     DELETE_PROJECT_MUTATION,
@@ -44,7 +46,14 @@ const ProjectList = ({ projects, onEdit }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {projects.map((project) => (
             <tr key={project.id}>
-              <td className="px-6 py-4 whitespace-nowrap">{project.name}</td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <Link
+                  to={`/dashboard/project/${project.id}`}
+                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                >
+                  {project.name}
+                </Link>
+              </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {project.client.name}
               </td>
