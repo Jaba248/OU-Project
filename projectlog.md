@@ -46,7 +46,7 @@
 -- Reviewed TMA03 feedback and created a plan to meet all the criteria, and reach a final endpoint and completion for the project
 -- Begin final Coding session to complete the application side.
 
--- Developemnt:
+-- Development:
 --- Implemented Global Authentication, using react context, created a ProtectedRoute to ensure only authorised users can access the dashboard
 --- Create a landing page
 --- Had to reset repository as icloud drive did not sync my first 2 commits
@@ -54,10 +54,12 @@
 --- Implement Update Project Functionality
 
 29/08/2025
--- Change Home Page Buttons to access dashbaord when the user is logged in, rather than login buttons
+-- Change Home Page Buttons to access dashboard when the user is logged in, rather than login buttons
 -- Implement the Delete Project Functionality
 
 30/08/2025
 -- Create Dahsboard Layout, Implement Side Navigation and top navigation, as Well as active nav link states for a more intuitive user Experience
 -- Create Clients List Page, with a separate create client modal, and delete functionality.
--- Create Project Details Page + Task Management CRUD
+-- Create Project Details Page
+-- Extend existing Task Model with more fields to be more fit for purpose
+-- Task Management CRUD interface (Create/edit Modal,), on the Project Details Page
