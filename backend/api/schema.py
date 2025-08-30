@@ -209,13 +209,19 @@ class CreateTask(graphene.Mutation):
     class Arguments:
         project_id = graphene.ID(required=True)
         title = graphene.String(required=True)
+        description = graphene.String()
+        start_date = graphene.Date()
+        due_date = graphene.Date()
 
-    def mutate(self, info, project_id, title):
+    def mutate(self, info, project_id, title, **kwargs):
+        # kwargs used for optional fields
         user = info.context.user
         if not user.is_authenticated:
             raise Exception("Authentication required!")
         project = Project.objects.get(pk=project_id, client__user=user)
-        task = Task(project=project, title=title)
+
+        # Create task with the title and any other provided fields
+        task = Task(project=project, title=title, **kwargs)
         task.save()
         return CreateTask(task=task)
 
@@ -226,17 +232,19 @@ class UpdateTask(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
         title = graphene.String()
-        is_completed = graphene.Boolean()
+        description = graphene.String()
+        status = graphene.String()
 
-    def mutate(self, info, id, title=None, is_completed=None):
+    def mutate(self, info, id, **kwargs):
         user = info.context.user
         if not user.is_authenticated:
             raise Exception("Authentication required!")
         task = Task.objects.get(pk=id, project__client__user=user)
-        if title:
-            task.title = title
-        if is_completed is not None:
-            task.is_completed = is_completed
+
+        # Update fields that were provided
+        for field, value in kwargs.items():
+            setattr(task, field, value)
+
         task.save()
         return UpdateTask(task=task)
 
