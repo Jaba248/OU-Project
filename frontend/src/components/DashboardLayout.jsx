@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const DashboardLayout = () => {
@@ -11,6 +11,13 @@ const DashboardLayout = () => {
     navigate("/"); // Redirect to landing page after logout
   };
 
+  // Function to match the links to active page
+  const navLinkClassName = ({ isActive }) => {
+    return `block px-4 py-2 rounded hover:bg-gray-700 hover:scale-104 ${
+      isActive ? "bg-gray-700" : ""
+    }`;
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -19,24 +26,15 @@ const DashboardLayout = () => {
           Freelancer PMS
         </div>
         <nav className="flex-grow p-4 space-y-2">
-          <Link
-            to="/dashboard/"
-            className="block px-4 py-2 rounded hover:bg-gray-700"
-          >
+          <NavLink to="/dashboard/" className={navLinkClassName}>
             Overview
-          </Link>
-          <Link
-            to="/dashboard/projects"
-            className="block px-4 py-2 rounded hover:bg-gray-700"
-          >
+          </NavLink>
+          <NavLink to="/dashboard/projects" className={navLinkClassName}>
             Projects
-          </Link>
-          <Link
-            to="/dashboard/clients"
-            className="block px-4 py-2 rounded hover:bg-gray-700"
-          >
+          </NavLink>
+          <NavLink to="/dashboard/clients" className={navLinkClassName}>
             Clients
-          </Link>
+          </NavLink>
           {/* Tasks to be added later */}
           <a
             href="#"
