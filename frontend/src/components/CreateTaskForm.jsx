@@ -55,17 +55,31 @@ const CreateTaskForm = ({ projectId }) => {
         disabled={loading}
       />
       <div className="flex items-center gap-4">
-        <label htmlFor="dueDate" className="text-sm text-gray-600">
-          Due Date:
-        </label>
-        <input
-          id="dueDate"
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          className="px-3 py-2 border rounded-md"
-          disabled={loading}
-        />
+        <div className="flex items-center gap-2">
+          <label htmlFor="startDate" className="text-sm text-gray-600">
+            Start:
+          </label>
+          <input
+            id="startDate"
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="px-3 py-2 border rounded-md"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label htmlFor="dueDate" className="text-sm text-gray-600">
+            Due:
+          </label>
+          <input
+            id="dueDate"
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="px-3 py-2 border rounded-md"
+          />
+        </div>
         <button
           type="submit"
           disabled={loading}
