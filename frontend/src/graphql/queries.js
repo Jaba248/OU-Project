@@ -40,6 +40,7 @@ export const GET_PROJECT_BY_ID = gql`
         id
         title
         description
+        startDate
         dueDate
         status
       }

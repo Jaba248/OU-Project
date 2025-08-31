@@ -70,6 +70,7 @@ export const CREATE_TASK_MUTATION = gql`
         id
         title
         description
+        startDate
         dueDate
         status
       }
