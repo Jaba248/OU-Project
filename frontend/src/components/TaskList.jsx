@@ -1,6 +1,9 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { UPDATE_TASK_MUTATION } from "../graphql/mutations";
+import {
+  UPDATE_TASK_MUTATION,
+  DELETE_TASK_MUTATION,
+} from "../graphql/mutations";
 import { GET_PROJECT_BY_ID } from "../graphql/queries";
 
 const TaskList = ({ tasks, projectId, onEdit }) => {
@@ -9,9 +12,23 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
       { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
     ],
   });
+  const [deleteTask, { loading: deleteLoading, error: deleteError }] =
+    useMutation(DELETE_TASK_MUTATION, {
+      refetchQueries: [
+        { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
+      ],
+    });
+  // Handle Tickbox and update on server side
   const handleStatusChange = (task) => {
     const newStatus = task.status === "COMPLETED" ? "PENDING" : "COMPLETED";
     updateTask({ variables: { id: task.id, status: newStatus } });
+  };
+
+  // Delete Handle
+  const handleDelete = (taskId) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      deleteTask({ variables: { id: taskId } });
+    }
   };
   if (!tasks || tasks.length === 0) {
     return (
@@ -23,6 +40,13 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
 
   return (
     <div className="space-y-4">
+      {/* Error during deleting task */}
+      {deleteError && (
+        <p className="text-red-500">
+          Error deleting task: {deleteError.message}
+        </p>
+      )}
+
       {tasks.map((task) => (
         <div
           key={task.id}
@@ -66,7 +90,10 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
             >
               Edit
             </button>
-            <button className="text-sm text-red-600 hover:text-red-900">
+            <button
+              className="text-sm text-red-600 hover:text-red-900"
+              onClick={() => handleDelete(task.id)}
+            >
               Delete
             </button>
           </div>
