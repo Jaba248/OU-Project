@@ -63,3 +63,12 @@
 -- Create Project Details Page
 -- Extend existing Task Model with more fields to be more fit for purpose
 -- Task Management CRUD interface (Create/edit Modal,), on the Project Details Page
+
+31/08/2025
+-- Implement Delete Button for tasks
+-- Fix edit tasks
+
+01/09/2025
+-- Create Landing Page Navbar, and Dashboard Navbar
+-- Incorporate User Information into navbar
+-- Create a settings page to view user information and change password
