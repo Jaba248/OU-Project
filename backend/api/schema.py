@@ -11,7 +11,8 @@ from .models import Client, Project, Task
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "email")
+        # Limit fields which can be accessed, for security and privacy purposes
+        fields = ("id", "username", "email", "first_name", "last_name")
 
 
 class ClientType(DjangoObjectType):
