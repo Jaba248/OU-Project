@@ -73,3 +73,5 @@
 -- Incorporate User Information into navbar
 -- Create a settings page to view user information and change password
 -- Adjust architecture to use email as the username, and register users with first name and last name
+-- Complete Dashboard Overview page
+-- Implement Stripe invoicing.
