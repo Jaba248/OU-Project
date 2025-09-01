@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   // Global Logout Function
   const logout = () => {
     setToken(null);
+    localStorage.removeItem("authToken");
   };
   // Context dictionary provided to components
   const value = {
