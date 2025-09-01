@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUser($username: String!, $email: String!, $password: String!) {
-    createUser(username: $username, email: $email, password: $password) {
-      user {
-        id
-      }
-    }
-  }
-`;
+import { CREATE_USER_MUTATION } from "../graphql/mutations";
 
 const Register = () => {
   const [username, setUsername] = useState("");

@@ -21,7 +21,6 @@ const LandingLayout = () => {
               </Link>
             ) : (
               <>
-                {" "}
                 <Link
                   to="/login"
                   className="px-4 py-2 text-gray-600 hover:text-blue-500"
