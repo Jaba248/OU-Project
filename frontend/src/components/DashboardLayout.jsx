@@ -1,11 +1,12 @@
 import React from "react";
 import { Link, Outlet, useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { WHO_AM_I } from "../graphql/queries";
+import { useQuery } from "@apollo/client";
 
 const DashboardLayout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     logout();
     navigate("/"); // Redirect to landing page after logout
@@ -17,6 +18,8 @@ const DashboardLayout = () => {
       isActive ? "bg-gray-700" : ""
     }`;
   };
+  // Who Am I Query
+  const { data, loading } = useQuery(WHO_AM_I);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -58,9 +61,18 @@ const DashboardLayout = () => {
 
       {/* Main Page Body */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white shadow-md p-4">
-          {/* Top Navbar for quick actions */}
-          <div className="text-right">Welcome, User!</div>
+        <header className="bg-white shadow-md p-4 flex justify-end items-center">
+          <div className="text-right">
+            {loading
+              ? "Loading..."
+              : `Welcome, ${data?.whoAmI?.firstName || "User"}`}
+          </div>
+          <button
+            onClick={handleLogout}
+            className="ml-4 px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300"
+          >
+            Logout
+          </button>
         </header>
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <Outlet />
