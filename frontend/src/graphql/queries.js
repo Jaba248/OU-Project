@@ -47,3 +47,13 @@ export const GET_PROJECT_BY_ID = gql`
     }
   }
 `;
+// User Queries
+export const WHO_AM_I = gql`
+  query WhoAmI {
+    whoAmI {
+      id
+      username
+      email
+    }
+  }
+`;

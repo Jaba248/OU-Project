@@ -114,3 +114,12 @@ export const DELETE_TASK_MUTATION = gql`
   }
 `;
 // End task Mutations
+
+// User Mutations
+export const CHANGE_PASSWORD_MUTATION = gql`
+  mutation ChangePassword($oldPassword: String!, $newPassword: String!) {
+    changePassword(oldPassword: $oldPassword, newPassword: $newPassword) {
+      success
+    }
+  }
+`;
