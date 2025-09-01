@@ -11,6 +11,7 @@ import DashboardLandingPage from "./pages/dashboard/Dashboard";
 import ProjectsPage from "./pages/dashboard/Projects";
 import ProjectDetailPage from "./pages/dashboard/ProjectDetail";
 import ClientsPage from "./pages/dashboard/Clients";
+import SettingsPage from "./pages/dashboard/Settings";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="projects" element={<ProjectsPage />} />
             <Route path="projects/:id" element={<ProjectDetailPage />} />
             <Route path="clients" element={<ClientsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </div>

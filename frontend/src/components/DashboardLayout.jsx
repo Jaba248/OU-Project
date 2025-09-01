@@ -44,12 +44,9 @@ const DashboardLayout = () => {
           </a>
         </nav>
         <div className="p-4 border-t border-gray-700">
-          <a
-            href="#"
-            className="block px-4 py-2 rounded text-gray-500 cursor-not-allowed"
-          >
+          <NavLink to="/dashboard/settings" className={navLinkClassName}>
             Settings
-          </a>
+          </NavLink>
           <button
             onClick={handleLogout}
             className="w-full text-left block px-4 py-2 rounded hover:bg-red-700"
