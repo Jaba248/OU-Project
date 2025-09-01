@@ -45,7 +45,7 @@ const Register = () => {
           <label className="block text-gray-700">Last Name</label>
           <input
             type="text"
-            value={firstName}
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className="w-full px-3 py-2 border rounded"
             required
