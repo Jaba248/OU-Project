@@ -38,6 +38,8 @@ class TaskType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
+    # Fetch User data
+    who_am_i = graphene.Field(UserType)
     # Fetch lists of items
     all_clients = graphene.List(ClientType)
     all_projects = graphene.List(ProjectType)
@@ -45,6 +47,12 @@ class Query(graphene.ObjectType):
 
     # Fetch a single item by its ID
     project_by_id = graphene.Field(ProjectType, id=graphene.Int())
+
+    def resolve_who_am_i(root, info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception("Authentication required!")
+        return user
 
     def resolve_all_clients(root, info):
         user = info.context.user
@@ -266,6 +274,33 @@ class DeleteTask(graphene.Mutation):
         return DeleteTask(ok=True)
 
 
+# User Mutations
+# In api/schema.py, in the Mutations section
+
+
+class ChangePassword(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        old_password = graphene.String(required=True)
+        new_password = graphene.String(required=True)
+
+    def mutate(self, info, old_password, new_password):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
+
+        # Check if the old password matches the current user password
+        if not user.check_password(old_password):
+            raise Exception("Invalid old password!")
+
+        # Set the new password
+        user.set_password(new_password)
+        user.save()
+
+        return ChangePassword(success=True)
+
+
 # =================================================================
 #  Main Mutation Class Registration
 # =================================================================
@@ -286,3 +321,5 @@ class Mutation(graphene.ObjectType):
     create_task = CreateTask.Field()
     update_task = UpdateTask.Field()
     delete_task = DeleteTask.Field()
+    # User
+    change_password = ChangePassword.Field()
