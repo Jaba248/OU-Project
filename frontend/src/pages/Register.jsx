@@ -5,7 +5,8 @@ import { useAuth } from "../context/AuthContext";
 import { CREATE_USER_MUTATION } from "../graphql/mutations";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser({ variables: { username, email, password } });
+    createUser({ variables: { firstName, lastName, email, password } });
   };
   if (isLoggedIn) {
     return <Navigate to="/dashboard/" />;
@@ -31,11 +32,21 @@ const Register = () => {
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <div className="mb-4">
-          <label className="block text-gray-700">Username</label>
+          <label className="block text-gray-700">First Name</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Last Name</label>
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setLastName(e.target.value)}
             className="w-full px-3 py-2 border rounded"
             required
           />
