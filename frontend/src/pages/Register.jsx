@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CREATE_USER_MUTATION } from "../graphql/mutations";
 
