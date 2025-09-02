@@ -34,6 +34,10 @@ class TaskType(DjangoObjectType):
         model = Task
         fields = "__all__"
 
+class InvoiceType(DjangoObjectType):
+    class Meta:
+        model = Invoice
+        fields = "__all__"
 
 # =================================================================
 #  Queries (Read Operations)
@@ -79,7 +83,10 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if not user.is_authenticated:
             raise Exception("Authentication required!")
-        return Project.objects.get(pk=id, client__user=user)
+
+        project=Project.objects.get(pk=id, client__user=user)
+        project.check_invoice_paid() # check if invoice paid on every request of the project 
+        return project
 
 
 # =================================================================
@@ -324,9 +331,21 @@ class CreateStripeInvoice(graphene.Mutation):
             raise Exception("Authentication required!")
 
         project = Project.objects.get(pk=project_id, client__user=user)
+        invoice = project.get_invoice()
+        if invoice:
+            invoice.check_paid()
+        
+        if invoice 
+            if invoice.is_paid:
+                raise Exception("Invoice can not be regenerated as it has already been paid")
+            try:
+                stripe.Invoice.void_invoice(existing_invoice.stripe_invoice_id)
+            except stripe.error.InvalidRequestError:
+                # can possibly happen if the invoice was already voided or deleted in Stripe.
+                # In which case we can ignore and proceed and recreating and updating the relevant links and invoice ID
+                pass
         client = project.client
         tasks = project.tasks.all()
-
         if not tasks:
             raise Exception("Cannot create an invoice for a project with no tasks.")
 
@@ -350,16 +369,23 @@ class CreateStripeInvoice(graphene.Mutation):
             )
 
         # Create the final Draft Invoice
-        invoice = stripe.Invoice.create(
+        stripe_invoice = stripe.Invoice.create(
             customer=customer.id,
             collection_method="send_invoice",
             days_until_due=30,
             pending_invoice_items_behavior="include",
         )
         # Finalize the invoice (moves it from draft to open)
-        stripe.Invoice.finalize_invoice(invoice.id)
-
-        final_invoice = stripe.Invoice.retrieve(invoice.id)
+        stripe.Invoice.finalize_invoice(stripe_invoice.id)
+        
+        final_invoice = stripe.Invoice.retrieve(stripe_invoice.id)
+        if not invoice:
+            invoice=Invoice.objects.create(project=project)
+        invoice.amount=final_invoice.amount_due/100 # convert to pounds
+        invoice.due_date=final_invoice.due_date
+        invoice.stripe_invoice_id=stripe_invoice.id
+        invoice.stripe_invoice_url=final_invoice.hosted_invoice_url
+        invoice.save()
         return CreateStripeInvoice(invoice_url=final_invoice.hosted_invoice_url)
 
 
