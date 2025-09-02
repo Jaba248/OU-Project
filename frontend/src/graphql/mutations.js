@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+
 export const CREATE_USER_MUTATION = gql`
   mutation CreateUser(
     $firstName: String!
@@ -142,3 +143,13 @@ export const CHANGE_PASSWORD_MUTATION = gql`
     }
   }
 `;
+// End User Mutations
+// Stripe Mutations
+export const CREATE_STRIPE_INVOICE_MUTATION = gql`
+  mutation CreateStripeInvoice($projectId: ID!) {
+    createStripeInvoice(projectId: $projectId) {
+      invoiceUrl
+    }
+  }
+`;
+// End Stripe Mutations
