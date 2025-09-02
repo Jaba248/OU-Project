@@ -340,7 +340,7 @@ class CreateStripeInvoice(graphene.Mutation):
             if invoice.is_paid:
                 raise Exception("Invoice can not be regenerated as it has already been paid")
             try:
-                stripe.Invoice.void_invoice(existing_invoice.stripe_invoice_id)
+                stripe.Invoice.void_invoice(invoice.stripe_invoice_id)
             except stripe.error.InvalidRequestError:
                 # can possibly happen if the invoice was already voided or deleted in Stripe.
                 # In which case we can ignore and proceed and recreating and updating the relevant links and invoice ID
