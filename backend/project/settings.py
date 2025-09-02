@@ -27,8 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", # Vite's default port
-    "http://127.0.0.1:5173", # include direct local ip
+    "http://localhost:5173",  # Vite's default port
+    "http://127.0.0.1:5173",  # include direct local ip
 ]
 # Allow authentication
 CORS_ALLOW_CREDENTIALS = True
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed Modules
     "graphene_django",
-    'corsheaders',
+    "corsheaders",
     # Project Apps
     "api",
 ]
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -144,3 +144,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# STRIPE CONFIGURATION
+# Usually placed into .env, but as this is a submission i have included it direct for testing purposes
+STRIPE_SECRET_KEY = "sk_test_YOUR_SECRET_KEY_HERE"
