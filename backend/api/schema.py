@@ -4,6 +4,8 @@ from graphene_django import DjangoObjectType
 from .models import Client, Project, Task,Invoice
 from django.conf import settings
 import stripe
+from datetime import date, timedelta, datetime
+
 # =================================================================
 #  Type Definitions
 # =================================================================
@@ -381,7 +383,7 @@ class CreateStripeInvoice(graphene.Mutation):
         if not invoice:
             invoice=Invoice.objects.create(project=project)
         invoice.amount=final_invoice.amount_due/100 # convert to pounds
-        invoice.due_date=final_invoice.due_date
+        invoice.due_date=datetime.fromtimestamp(final_invoice.due_date).date() # convert stripe timestamp to date
         invoice.stripe_invoice_id=stripe_invoice.id
         invoice.stripe_invoice_url=final_invoice.hosted_invoice_url
         invoice.save()
