@@ -74,4 +74,8 @@
 -- Create a settings page to view user information and change password
 -- Adjust architecture to use email as the username, and register users with first name and last name
 -- Complete Dashboard Overview page
--- Implement Stripe invoicing.
+
+02/09/2025
+-- Implement Stripe invoicing using stripes sandbox environment, creates an invoice for a project based on its tasks
+-- Fix graphql submission bugs
+-- Fix create client inside create project, to deny invalid email addresses
