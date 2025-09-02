@@ -1,10 +1,9 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
-from .models import Client, Project, Task
+from .models import Client, Project, Task,Invoice
 from django.conf import settings
 import stripe
-
 # =================================================================
 #  Type Definitions
 # =================================================================
@@ -335,7 +334,7 @@ class CreateStripeInvoice(graphene.Mutation):
         if invoice:
             invoice.check_paid()
         
-        if invoice 
+        if invoice:
             if invoice.is_paid:
                 raise Exception("Invoice can not be regenerated as it has already been paid")
             try:

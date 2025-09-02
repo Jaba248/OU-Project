@@ -79,3 +79,10 @@
 -- Implement Stripe invoicing using stripes sandbox environment, creates an invoice for a project based on its tasks
 -- Fix graphql submission bugs
 -- Fix create client inside create project, to deny invalid email addresses
+-- Extend Invoice system to store the invoice url, and allow the invoice to be viewed again.
+Also add logic to mark Invoice as paid, and store amount_paid
+-- Extend tasks, to have a include on invoice field, and a price to be charged field to ensure a more complete experience
+
+###Points for document
+invoice pricing and wether it should be billed or not fields on tasks
+Stripe invoice show sname ou Freelancer pms (ou included for personal reference on stripes system)
