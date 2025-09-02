@@ -344,12 +344,9 @@ class CreateStripeInvoice(graphene.Mutation):
         for task in tasks:
             stripe.InvoiceItem.create(
                 customer=customer.id,
-                price_data={
-                    "currency": "gbp",
-                    "product_data": {"name": task.title},
-                    "unit_amount": 2500,  # Price in pennies (£25.00)
-                },
-                description=task.description or None,
+                amount=2500,  # Price in pennies (£25.00)
+                currency="gbp",
+                description=task.title,
             )
 
         # Create the final Draft Invoice
@@ -357,6 +354,7 @@ class CreateStripeInvoice(graphene.Mutation):
             customer=customer.id,
             collection_method="send_invoice",
             days_until_due=30,
+            pending_invoice_items_behavior="include",
         )
         # Finalize the invoice (moves it from draft to open)
         stripe.Invoice.finalize_invoice(invoice.id)
