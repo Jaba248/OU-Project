@@ -7,6 +7,11 @@ import {
   UPDATE_PROJECT_MUTATION,
 } from "../graphql/mutations";
 
+const validateEmail = (email) => {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
 const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   // Check if we are in edit mode
   const isEditMode = !!projectToEdit;
@@ -73,6 +78,10 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   // Handle new client form
   const handleClientSubmit = (e) => {
     e.preventDefault();
+    if (!validateEmail(newClientEmail)) {
+      alert("Please enter a valid email address for the new client.");
+      return; // Stop the function if the email is invalid
+    }
     createClient({ variables: { name: newClientName, email: newClientEmail } });
   };
 
