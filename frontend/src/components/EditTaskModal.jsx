@@ -30,7 +30,13 @@ const EditTaskModal = ({ task, isOpen, onClose, projectId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateTask({
-      variables: { id: task.id, title, description, startDate, dueDate },
+      variables: {
+        id: task.id,
+        title,
+        description,
+        startDate: startDate || null,
+        dueDate: dueDate || null,
+      },
     });
   };
 

@@ -28,7 +28,13 @@ const CreateTaskForm = ({ projectId }) => {
     if (!title.trim()) return; // Check if title field is empty
     // Pass  variables to the mutation
     createTask({
-      variables: { projectId, title, description, startDate, dueDate },
+      variables: {
+        projectId,
+        title,
+        description,
+        startDate: startDate || null,
+        dueDate: dueDate || null,
+      },
     });
   };
 
