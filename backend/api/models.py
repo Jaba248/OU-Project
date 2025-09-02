@@ -25,10 +25,17 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
+    stripe_invoice_id = models.CharField(
+        max_length=255, blank=True, null=True
+    )  # Use to check if an invoice has been generated
+    stripe_invoice_url = models.TextField(blank=True)  # Stored to allow viewing again
+
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
+    def get_invoice
 
 class Task(models.Model):
     class Status(models.TextChoices):
@@ -65,14 +72,16 @@ class TimeLog(models.Model):
 
 class Invoice(models.Model):
     # Invoices are generated for a whole project.
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="invoices"
+    project = models.OneToOneField(
+        Project, on_delete=models.CASCADE, related_name="invoice"
     )
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     due_date = models.DateField()
     is_paid = models.BooleanField(default=False)
     # This will store the ID from Stripe for reference.
     stripe_invoice_id = models.CharField(max_length=255, blank=True, null=True)
+    # store the url to re-access
+    stripe_invoice_url = models.TextField(blank=True)
 
     def __str__(self):
         return f"Invoice for {self.project.name}"
