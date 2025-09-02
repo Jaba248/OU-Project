@@ -147,4 +147,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # STRIPE CONFIGURATION
 # Usually placed into .env, but as this is a submission i have included it direct for testing purposes
-STRIPE_SECRET_KEY = "sk_test_YOUR_SECRET_KEY_HERE"
+STRIPE_SECRET_KEY = "sk_test_51S2sniI7KRcbMJTVHsKH0hRn2xHzJVloh2e3BhpB9WByPODmqPSvHE8MjwqvmsdV24Fh5So7KWB6DXTbDJU1ZdKQ00NaOKNrrr"
