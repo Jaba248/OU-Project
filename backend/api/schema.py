@@ -2,6 +2,8 @@ import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from .models import Client, Project, Task
+from django.conf import settings
+import stripe
 
 # =================================================================
 #  Type Definitions
@@ -284,7 +286,6 @@ class DeleteTask(graphene.Mutation):
 
 
 # User Mutations
-# In api/schema.py, in the Mutations section
 
 
 class ChangePassword(graphene.Mutation):
@@ -310,6 +311,60 @@ class ChangePassword(graphene.Mutation):
         return ChangePassword(success=True)
 
 
+# Stripe Mutations
+class CreateStripeInvoice(graphene.Mutation):
+    invoice_url = graphene.String()
+
+    class Arguments:
+        project_id = graphene.ID(required=True)
+
+    def mutate(self, info, project_id):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
+
+        project = Project.objects.get(pk=project_id, client__user=user)
+        client = project.client
+        tasks = project.tasks.all()
+
+        if not tasks:
+            raise Exception("Cannot create an invoice for a project with no tasks.")
+
+        # Set the Stripe API key from your settings
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # Find or create a Stripe Customer for the client of the project
+        customers = stripe.Customer.list(email=client.email, limit=1)
+        if customers.data:
+            customer = customers.data[0]
+        else:
+            customer = stripe.Customer.create(name=client.name, email=client.email)
+
+        # Create Invoice Items for each task (using a placeholder price) - for proof of concept
+        for task in tasks:
+            stripe.InvoiceItem.create(
+                customer=customer.id,
+                price_data={
+                    "currency": "gbp",
+                    "product_data": {"name": task.title},
+                    "unit_amount": 2500,  # Price in pennies (£25.00)
+                },
+                description=task.description or None,
+            )
+
+        # Create the final Draft Invoice
+        invoice = stripe.Invoice.create(
+            customer=customer.id,
+            collection_method="send_invoice",
+            days_until_due=30,
+        )
+        # Finalize the invoice (moves it from draft to open)
+        stripe.Invoice.finalize_invoice(invoice.id)
+
+        final_invoice = stripe.Invoice.retrieve(invoice.id)
+        return CreateStripeInvoice(invoice_url=final_invoice.hosted_invoice_url)
+
+
 # =================================================================
 #  Main Mutation Class Registration
 # =================================================================
@@ -332,3 +387,5 @@ class Mutation(graphene.ObjectType):
     delete_task = DeleteTask.Field()
     # User
     change_password = ChangePassword.Field()
+    # Stripe
+    create_stripe_invoice = CreateStripeInvoice.Field()
