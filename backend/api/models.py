@@ -91,7 +91,7 @@ class Invoice(models.Model):
     # Amounts in poudns
     amount = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
-    due_date = models.DateField()
+    due_date = models.DateField(blank=True,null=True)
     is_paid = models.BooleanField(default=False)
     # This will store the ID from Stripe for reference.
     stripe_invoice_id = models.CharField(max_length=255, blank=True, null=True)
