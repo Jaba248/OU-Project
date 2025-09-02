@@ -38,9 +38,14 @@ class Project(models.Model):
         return self.name
 
     def get_invoice(self):
-        return self.invoice or None
+        try:
+            # To account for a django error when attempting to pull a foreign key by related name
+            return self.invoice or None
+        except:
+            return None
 
     def check_invoice_paid(self):
+        # In a real app we would use a webhook to verify payment, but due to inability to test i have left it as a fetch the status from stripe
         if self.get_invoice():
             self.invoice.check_paid()
         
@@ -104,6 +109,6 @@ class Invoice(models.Model):
             invoice = stripe.Invoice.retrieve(self.stripe_invoice_id)
             if invoice["status"]=="paid":
                 self.is_paid=True
-                self.amount_paid=invoice["amount_paid"]/100 # divide by 100 to convert to pounds
+                self.amount_paid=invoice.amount_paid/100 # divide by 100 to convert to pounds
                 self.save()
         return self.is_paid 
