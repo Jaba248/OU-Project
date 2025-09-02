@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import stripe
+from django.conf import settings
 
 
 class Client(models.Model):
@@ -74,7 +76,9 @@ class Invoice(models.Model):
     project = models.OneToOneField(
         Project, on_delete=models.CASCADE, related_name="invoice"
     )
+    # Amounts in poudns
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     due_date = models.DateField()
     is_paid = models.BooleanField(default=False)
     # This will store the ID from Stripe for reference.
@@ -84,3 +88,15 @@ class Invoice(models.Model):
 
     def __str__(self):
         return f"Invoice for {self.project.name}"
+
+    def check_paid(self):
+        # Check if item is already paid if not fetch invoice
+        if not self.is_paid and self.stripe_invoice_id:
+            # Pull Object from stripe
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            invoice = stripe.Invoice.retrieve(self.stripe_invoice_id)
+            if invoice["status"]=="paid":
+                self.is_paid=True
+                self.amount_paid=invoice["amount_paid"]/100 # divide by 100 to convert to pounds
+                self.save()
+        return self.is_paid 
