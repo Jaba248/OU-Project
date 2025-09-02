@@ -37,6 +37,13 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_invoice(self):
+        return self.invoice or None
+
+    def check_invoice_paid(self):
+        if self.get_invoice():
+            self.invoice.check_paid()
+        
 
 class Task(models.Model):
     class Status(models.TextChoices):
