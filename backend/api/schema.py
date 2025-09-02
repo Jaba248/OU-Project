@@ -333,25 +333,28 @@ class CreateStripeInvoice(graphene.Mutation):
 
         project = Project.objects.get(pk=project_id, client__user=user)
         invoice = project.get_invoice()
+        
         if invoice:
             invoice.check_paid()
-        
+        stripe.api_key = settings.STRIPE_SECRET_KEY
         if invoice:
             if invoice.is_paid:
                 raise Exception("Invoice can not be regenerated as it has already been paid")
-            try:
-                stripe.Invoice.void_invoice(invoice.stripe_invoice_id)
-            except stripe.error.InvalidRequestError:
-                # can possibly happen if the invoice was already voided or deleted in Stripe.
-                # In which case we can ignore and proceed and recreating and updating the relevant links and invoice ID
-                pass
+            if invoice.stripe_invoice_id:
+                try:
+
+                    stripe.Invoice.void_invoice(invoice.stripe_invoice_id)
+                except stripe.error.InvalidRequestError:
+                    # can possibly happen if the invoice was already voided or deleted in Stripe.
+                    # In which case we can ignore and proceed and recreating and updating the relevant links and invoice ID
+                    pass
         client = project.client
+        
         tasks = project.tasks.all()
         if not tasks:
             raise Exception("Cannot create an invoice for a project with no tasks.")
-
         # Set the Stripe API key from your settings
-        stripe.api_key = settings.STRIPE_SECRET_KEY
+        
 
         # Find or create a Stripe Customer for the client of the project
         customers = stripe.Customer.list(email=client.email, limit=1)
