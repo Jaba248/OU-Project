@@ -35,7 +35,6 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-    def get_invoice
 
 class Task(models.Model):
     class Status(models.TextChoices):
