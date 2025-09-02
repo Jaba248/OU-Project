@@ -89,8 +89,8 @@ class Invoice(models.Model):
         Project, on_delete=models.CASCADE, related_name="invoice"
     )
     # Amounts in poudns
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     due_date = models.DateField()
     is_paid = models.BooleanField(default=False)
     # This will store the ID from Stripe for reference.
