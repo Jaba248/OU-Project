@@ -11,6 +11,12 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
     refetchQueries: [
       { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
     ],
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onCompleted: () => {
+      toast.success("Task Updated Successfully");
+    },
   });
   const [deleteTask, { loading: deleteLoading, error: deleteError }] =
     useMutation(DELETE_TASK_MUTATION, {
