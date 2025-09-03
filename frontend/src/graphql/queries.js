@@ -44,6 +44,10 @@ export const GET_PROJECT_BY_ID = gql`
         dueDate
         status
       }
+      invoice {
+        stripeInvoiceUrl
+        isPaid
+      }
     }
   }
 `;
