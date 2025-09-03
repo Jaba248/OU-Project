@@ -61,6 +61,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      <Toaster />
       {/* Sidebar */}
       <div
         onClick={() => setIsSidebarOpen(false)}

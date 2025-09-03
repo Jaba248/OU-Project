@@ -39,6 +39,7 @@ const LandingLayout = () => {
         </nav>
       </header>
       <main>
+        <Toaster />
         {/* Router will render the inner content in the Outlet Component*/}
         <Outlet />
       </main>
