@@ -60,8 +60,8 @@ const CreateTaskForm = ({ projectId }) => {
         rows="2"
         disabled={loading}
       />
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center flex-wrap  gap-4">
+        <div className="flex flex-col text-left gap-2">
           <label htmlFor="startDate" className="text-sm text-gray-600">
             Start:
           </label>
@@ -74,7 +74,7 @@ const CreateTaskForm = ({ projectId }) => {
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col text-left gap-2">
           <label htmlFor="dueDate" className="text-sm text-gray-600">
             Due:
           </label>
@@ -89,7 +89,7 @@ const CreateTaskForm = ({ projectId }) => {
         <button
           type="submit"
           disabled={loading}
-          className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 ml-auto"
+          className="px-6 py-2 max-md:w-full bg-green-500 text-white rounded-md hover:bg-green-600 ml-auto"
         >
           {loading ? "Adding..." : "Add Task"}
         </button>
