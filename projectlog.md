@@ -85,6 +85,7 @@
 
 03/09/2025
 -- Extend tasks, to have a include on invoice field, and a price to be charged field to ensure a more complete experience
+--Optimise navigation for mobile, converting the sidebar on mobile to a sliding drawer, while retaining the desktop functionality
 
 ###Points for document
 -invoice pricing and wether it should be billed or not fields on tasks

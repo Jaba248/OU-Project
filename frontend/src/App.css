@@ -1,4 +1,6 @@
 button,
-a {
+a,
+.dashboard__sidebar,
+.dashboard__sidebar__background {
   transition: all 0.3s;
 }
