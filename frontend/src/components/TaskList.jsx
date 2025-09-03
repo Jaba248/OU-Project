@@ -5,7 +5,7 @@ import {
   DELETE_TASK_MUTATION,
 } from "../graphql/mutations";
 import { GET_PROJECT_BY_ID } from "../graphql/queries";
-
+import toast from "react-hot-toast";
 const TaskList = ({ tasks, projectId, onEdit }) => {
   const [updateTask] = useMutation(UPDATE_TASK_MUTATION, {
     refetchQueries: [
@@ -17,6 +17,12 @@ const TaskList = ({ tasks, projectId, onEdit }) => {
       refetchQueries: [
         { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
       ],
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onCompleted: () => {
+        toast.success("Task Deleted Successfully");
+      },
     });
   // Handle Tickbox and update on server side
   const handleStatusChange = (task) => {

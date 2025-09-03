@@ -39,6 +39,7 @@ const ProjectDetails = () => {
       if (data.createStripeInvoice.invoiceUrl) {
         window.open(data.createStripeInvoice.invoiceUrl, "_blank");
       }
+      toast.success("Invoice generated successfully");
     },
     onError: (error) => {
       toast.error(`Failed to create invoice: ${error.message}`);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { GET_ALL_CLIENTS } from "../graphql/queries";
 import { CREATE_CLIENT_MUTATION } from "../graphql/mutations";
-
+import toast from "react-hot-toast";
 const CreateClientModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +11,13 @@ const CreateClientModal = ({ isOpen, onClose }) => {
     CREATE_CLIENT_MUTATION,
     {
       refetchQueries: [{ query: GET_ALL_CLIENTS }], // Used to refresh list
-      onCompleted: onClose, // Used to close modal
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onCompleted: () => {
+        toast.success("Client Created Successfully");
+        onClose(); // Used to close modal
+      },
     }
   );
 

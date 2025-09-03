@@ -40,21 +40,39 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   const [createProject, { loading: createLoading, error: createError }] =
     useMutation(CREATE_PROJECT_MUTATION, {
       refetchQueries: [{ query: GET_ALL_PROJECTS }],
-      onCompleted: onClose,
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onCompleted: () => {
+        toast.success("Project Created Successfully");
+        onClose(); // Used to close modal
+      },
     });
 
   // Mutation for editing a project
   const [updateProject, { loading: updateLoading, error: updateError }] =
     useMutation(UPDATE_PROJECT_MUTATION, {
       refetchQueries: [{ query: GET_ALL_PROJECTS }],
-      onCompleted: onClose,
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onCompleted: () => {
+        toast.success("Project Updated Successfully");
+        onClose(); // Used to close modal
+      },
     });
 
   const [createClient, { loading: clientLoading, error: clientError }] =
     useMutation(CREATE_CLIENT_MUTATION, {
       refetchQueries: [{ query: GET_ALL_CLIENTS }], // Refetch clients so the dropdown updates
+
+      onError: (error) => {
+        toast.error(error.message);
+      },
       onCompleted: () => {
+        toast.success("Client Created Successfully");
         // After creating a client, hide the form
+        onClose(); // Used to close modal
         setShowAddClient(false);
         setNewClientName("");
         setNewClientEmail("");

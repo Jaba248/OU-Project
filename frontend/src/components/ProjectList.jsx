@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_MUTATION } from "../graphql/mutations";
 import { GET_ALL_PROJECTS } from "../graphql/queries";
+import toast from "react-hot-toast";
 
 const ProjectList = ({ projects, onEdit }) => {
   const [deleteProject, { loading, error }] = useMutation(
     DELETE_PROJECT_MUTATION,
     {
       refetchQueries: [{ query: GET_ALL_PROJECTS }], // Used to refresh the list after completion
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onCompleted: () => {
+        toast.success("Project Deleted Successfully");
+      },
     }
   );
   // Delete Handle Function

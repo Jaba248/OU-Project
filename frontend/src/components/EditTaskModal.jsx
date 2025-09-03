@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_TASK_MUTATION } from "../graphql/mutations";
 import { GET_PROJECT_BY_ID } from "../graphql/queries";
-
+import toast from "react-hot-toast";
 const EditTaskModal = ({ task, isOpen, onClose, projectId }) => {
   // Form field state
   const [title, setTitle] = useState("");
@@ -24,7 +24,14 @@ const EditTaskModal = ({ task, isOpen, onClose, projectId }) => {
     refetchQueries: [
       { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
     ],
-    onCompleted: onClose, // Close the modal on success
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onCompleted: () => {
+      toast.success("Task Updated Successfully");
+      // Close the modal on success
+      onClose();
+    },
   });
 
   const handleSubmit = (e) => {

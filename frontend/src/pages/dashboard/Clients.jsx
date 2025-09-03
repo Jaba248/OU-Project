@@ -3,12 +3,18 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_ALL_CLIENTS } from "../../graphql/queries";
 import { DELETE_CLIENT_MUTATION } from "../../graphql/mutations";
 import CreateClientModal from "../../components/CreateClientModal";
-
+import toast from "react-hot-toast";
 const Clients = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, error, data } = useQuery(GET_ALL_CLIENTS);
   const [deleteClient] = useMutation(DELETE_CLIENT_MUTATION, {
     refetchQueries: [{ query: GET_ALL_CLIENTS }], // Refetch the list after deleting
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onCompleted: () => {
+      toast.success("Client Deleted Successfully");
+    },
   });
   const handleDelete = (clientId) => {
     if (

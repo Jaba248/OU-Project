@@ -14,6 +14,9 @@ const Settings = () => {
     changePassword,
     { loading: changePasswordLoading, error: changePasswordError },
   ] = useMutation(CHANGE_PASSWORD_MUTATION, {
+    onError: (error) => {
+      toast.error(error.message);
+    },
     onCompleted: () => {
       toast.success("Password changed successfully!");
       setOldPassword("");

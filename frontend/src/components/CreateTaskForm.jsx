@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_TASK_MUTATION } from "../graphql/mutations";
 import { GET_PROJECT_BY_ID } from "../graphql/queries";
-
+import toast from "react-hot-toast";
 const CreateTaskForm = ({ projectId }) => {
   // Form Field States
   const [title, setTitle] = useState("");
@@ -14,7 +14,11 @@ const CreateTaskForm = ({ projectId }) => {
     refetchQueries: [
       { query: GET_PROJECT_BY_ID, variables: { id: parseInt(projectId) } },
     ],
+    onError: (error) => {
+      toast.error(error.message);
+    },
     onCompleted: () => {
+      toast.success("Task Created Successfully");
       // Clear data on success
       setTitle("");
       setDescription("");

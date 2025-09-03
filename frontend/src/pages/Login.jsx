@@ -22,7 +22,7 @@ const Login = () => {
     },
     onCompleted: (data) => {
       const token = data.tokenAuth.token;
-      authLogin(token); // store token
+      authLogin(token); // store token + sends toast
       navigate("/dashboard/"); // Redirect to dashboard on successful login
     },
   });
