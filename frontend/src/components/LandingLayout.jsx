@@ -6,8 +6,8 @@ const LandingLayout = () => {
   const { isLoggedIn } = useAuth();
   return (
     <div className="font-sans">
-      <header className="bg-white shadow-md">
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <header className="bg-white fixed top-0 w-full shadow-md">
+        <nav className="container fmx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-xl font-bold text-gray-800">
             <Link to="/">Freelancer PMS</Link>
           </div>
