@@ -67,7 +67,7 @@ const ProjectDetails = () => {
         onClose={handleCloseTaskEditModal}
         projectId={project.id}
       />
-      <div className="p-8">
+      <>
         <Link
           to="/dashboard/projects"
           className="text-blue-500 hover:underline mb-6 block"
@@ -130,7 +130,7 @@ const ProjectDetails = () => {
             />
           </div>
         </div>
-      </div>
+      </>
     </>
   );
 };

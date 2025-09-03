@@ -18,7 +18,7 @@ const Dashboard = () => {
   const recentProjects = projectsData?.allProjects?.slice(-3).reverse() || [];
 
   return (
-    <div className="p-8">
+    <>
       <h1 className="text-3xl font-bold mb-6">Overview</h1>
 
       {/* Statistic Cards */}
@@ -73,7 +73,7 @@ const Dashboard = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -161,7 +161,7 @@ const DashboardLayout = () => {
           {/* Empty div to balance the hamburger on mobile, ensuring title is centered */}
           <div className="md:hidden w-6"></div>
         </header>
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 md:p-8 py-4 px-2">
           <Outlet />
           {/* Will be used by the parent route to attach the correct page content */}
         </main>

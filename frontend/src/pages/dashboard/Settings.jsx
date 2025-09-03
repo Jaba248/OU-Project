@@ -37,7 +37,7 @@ const Settings = () => {
   const user = data.whoAmI;
 
   return (
-    <div className="p-8">
+    <>
       <h1 className="text-3xl font-bold mb-6">Settings</h1>
 
       {/* Profile Section */}
@@ -102,7 +102,7 @@ const Settings = () => {
         </form>
       </div>
       {/* End Change Password section */}
-    </div>
+    </>
   );
 };
 
