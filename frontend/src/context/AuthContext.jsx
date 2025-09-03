@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-
+import toast from "react-hot-toast";
 const AuthContext = createContext(null); // Create Initial State
 
 // Create the state provider component
@@ -10,11 +10,13 @@ export const AuthProvider = ({ children }) => {
   const login = (userToken) => {
     localStorage.setItem("authToken", userToken);
     setToken(userToken);
+    toast.success("Logged in Successfully");
   };
   // Global Logout Function
   const logout = () => {
     setToken(null);
     localStorage.removeItem("authToken");
+    toast.success("Logged out Successfully");
   };
   // Context dictionary provided to components
   const value = {

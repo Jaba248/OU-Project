@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import toast from "react-hot-toast";
 const LOGIN_MUTATION = gql`
   mutation TokenAuth($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
@@ -17,6 +17,9 @@ const Login = () => {
   const { login: authLogin, isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
+    onError: (error) => {
+      toast.error(error.message);
+    },
     onCompleted: (data) => {
       const token = data.tokenAuth.token;
       authLogin(token); // store token

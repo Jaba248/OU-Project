@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CREATE_USER_MUTATION } from "../graphql/mutations";
-
+import toast from "react-hot-toast";
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -12,8 +12,12 @@ const Register = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION, {
+    onError: (error) => {
+      toast.error(error.message);
+    },
     onCompleted: () => {
       navigate("/login"); // Redirect to login after successful registration
+      toast.success("Account Created Successfully");
     },
   });
 

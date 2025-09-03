@@ -6,7 +6,7 @@ import {
   CREATE_PROJECT_MUTATION,
   UPDATE_PROJECT_MUTATION,
 } from "../graphql/mutations";
-
+import toast from "react-hot-toast";
 const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
   return re.test(email);
@@ -64,7 +64,7 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   const handleProjectSubmit = (e) => {
     e.preventDefault();
     if (!clientId) {
-      alert("Please select a client.");
+      toast.error("Please select a client");
       return;
     }
     const variables = { name, startDate, clientId };
@@ -79,7 +79,7 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   const handleClientSubmit = (e) => {
     e.preventDefault();
     if (!validateEmail(newClientEmail)) {
-      alert("Please enter a valid email address for the new client.");
+      toast.error("Please enter a valid email address for the new client.");
       return; // Stop the function if the email is invalid
     }
     createClient({ variables: { name: newClientName, email: newClientEmail } });

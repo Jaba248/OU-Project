@@ -6,7 +6,7 @@ import { CREATE_STRIPE_INVOICE_MUTATION } from "../../graphql/mutations";
 import TaskList from "../../components/TaskList";
 import CreateTaskForm from "../../components/CreateTaskForm";
 import EditTaskModal from "../../components/EditTaskModal";
-
+import toast from "react-hot-toast";
 const ProjectDetails = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
@@ -41,7 +41,8 @@ const ProjectDetails = () => {
       }
     },
     onError: (error) => {
-      alert(`Failed to create invoice: ${error.message}`);
+      toast.error(`Failed to create invoice: ${error.message}`);
+
       // Refetch does not run on error, so to ensure the buttons and text are updated when a, invoice already paid error is raised we force a refetch.
       createInvoiceClient.refetchQueries({
         include: [

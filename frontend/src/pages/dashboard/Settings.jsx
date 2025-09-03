@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { WHO_AM_I } from "../../graphql/queries";
 import { CHANGE_PASSWORD_MUTATION } from "../../graphql/mutations";
-
+import toast from "react-hot-toast";
 const Settings = () => {
   const { data, loading, error } = useQuery(WHO_AM_I);
 
@@ -15,7 +15,7 @@ const Settings = () => {
     { loading: changePasswordLoading, error: changePasswordError },
   ] = useMutation(CHANGE_PASSWORD_MUTATION, {
     onCompleted: () => {
-      alert("Password changed successfully!");
+      toast.success("Password changed successfully!");
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
@@ -25,7 +25,7 @@ const Settings = () => {
   const handleChangePassword = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      alert("New passwords don't match!");
+      toast.error("New passwords don't match!");
       return;
     }
     changePassword({ variables: { oldPassword, newPassword } });
