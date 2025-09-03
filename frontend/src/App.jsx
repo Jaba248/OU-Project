@@ -20,7 +20,7 @@ function App() {
       <div>
         <Routes>
           <Route element={<LandingLayout />}>
-            {/* Rendered inside the layout */}
+            {/* Rendered inside the layout outlet component */}
             <Route index element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -35,7 +35,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            {/* Rendered inside the layout */}
+            {/* Rendered inside the layout outlet component */}
             <Route index element={<DashboardLandingPage />} />
             <Route path="projects" element={<ProjectsPage />} />
             <Route path="projects/:id" element={<ProjectDetailPage />} />

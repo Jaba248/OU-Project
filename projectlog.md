@@ -90,3 +90,9 @@
 ###Points for document
 -invoice pricing and wether it should be billed or not fields on tasks
 -Stripe invoice shows name ou Freelancer pms (ou included for personal reference on stripes system)
+-Modals can be streamlined animations, single files, DRY, dissmissable backdrop
+
+-- make a single form componenet and pass list
+-- dashboard tasks page not implemented
+-- invoice sent count on dashboard overview
+--Timelog model not used or implemented anywhere

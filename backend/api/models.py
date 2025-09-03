@@ -88,7 +88,7 @@ class Invoice(models.Model):
     project = models.OneToOneField(
         Project, on_delete=models.CASCADE, related_name="invoice"
     )
-    # Amounts in poudns
+    # Amounts in pounds
     amount = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     due_date = models.DateField(blank=True,null=True)

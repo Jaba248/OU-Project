@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// A quick hook to quickly access the data
+// A hook to access the data
 export const useAuth = () => {
   return useContext(AuthContext);
 };

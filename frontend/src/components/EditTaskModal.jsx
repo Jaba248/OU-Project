@@ -10,7 +10,7 @@ const EditTaskModal = ({ task, isOpen, onClose, projectId }) => {
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
 
-  // Prefill he form with the tasks data when the modal opens
+  // Prefill the form with the tasks data when the modal opens
   useEffect(() => {
     if (task) {
       setTitle(task.title || "");

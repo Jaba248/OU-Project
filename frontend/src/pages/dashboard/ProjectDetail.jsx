@@ -42,7 +42,7 @@ const ProjectDetails = () => {
     },
     onError: (error) => {
       alert(`Failed to create invoice: ${error.message}`);
-      // Refetch does it run on error, so to ensure the buttons and text are updated when a, invoice already paid error is raised we force a refetch.
+      // Refetch does not run on error, so to ensure the buttons and text are updated when a, invoice already paid error is raised we force a refetch.
       createInvoiceClient.refetchQueries({
         include: [
           {

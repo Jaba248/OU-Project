@@ -106,7 +106,6 @@ class CreateUser(graphene.Mutation):
         email = graphene.String(required=True)
 
     def mutate(self, info, password, email, first_name, last_name):
-        #  todo raise more specific errors for, email already exists, username already exists, password not secure enough
         user, created = get_user_model().objects.get_or_create(
             email=email,
             username=email,
@@ -118,6 +117,28 @@ class CreateUser(graphene.Mutation):
         user.set_password(password)
         user.save()
         return CreateUser(user=user)
+
+class ChangePassword(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        old_password = graphene.String(required=True)
+        new_password = graphene.String(required=True)
+
+    def mutate(self, info, old_password, new_password):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("Authentication required!")
+
+        # Check if the old password matches the current user password
+        if not user.check_password(old_password):
+            raise Exception("Invalid old password!")
+
+        # Set the new password
+        user.set_password(new_password)
+        user.save()
+
+        return ChangePassword(success=True)
 
 
 # --- Client Mutations ---
@@ -293,32 +314,6 @@ class DeleteTask(graphene.Mutation):
         return DeleteTask(ok=True)
 
 
-# User Mutations
-
-
-class ChangePassword(graphene.Mutation):
-    success = graphene.Boolean()
-
-    class Arguments:
-        old_password = graphene.String(required=True)
-        new_password = graphene.String(required=True)
-
-    def mutate(self, info, old_password, new_password):
-        user = info.context.user
-        if not user.is_authenticated:
-            raise Exception("Authentication required!")
-
-        # Check if the old password matches the current user password
-        if not user.check_password(old_password):
-            raise Exception("Invalid old password!")
-
-        # Set the new password
-        user.set_password(new_password)
-        user.save()
-
-        return ChangePassword(success=True)
-
-
 # Stripe Mutations
 class CreateStripeInvoice(graphene.Mutation):
     invoice_url = graphene.String()
@@ -401,6 +396,7 @@ class CreateStripeInvoice(graphene.Mutation):
 class Mutation(graphene.ObjectType):
     # User
     create_user = CreateUser.Field()
+    change_password = ChangePassword.Field()
     # Client
     create_client = CreateClient.Field()
     update_client = UpdateClient.Field()
@@ -413,7 +409,6 @@ class Mutation(graphene.ObjectType):
     create_task = CreateTask.Field()
     update_task = UpdateTask.Field()
     delete_task = DeleteTask.Field()
-    # User
-    change_password = ChangePassword.Field()
+
     # Stripe
     create_stripe_invoice = CreateStripeInvoice.Field()

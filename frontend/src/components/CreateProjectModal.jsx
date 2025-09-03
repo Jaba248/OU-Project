@@ -90,7 +90,6 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
   const error = createError || updateError;
   return (
     <div className="fixed inset-0 bg-gray-600/50 overflow-y-auto h-full w-full flex items-center justify-center">
-      {/* todo make background dismissable */}
       <div className="relative mx-auto p-8 border w-full max-w-md shadow-lg rounded-md bg-white">
         <h3 className="text-2xl font-bold mb-4">
           {isEditMode ? "Edit Project" : "Create New Project"}
@@ -117,7 +116,7 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
             />
           </div>
 
-          {/* === CLIENT CREATION UI === */}
+          {/* Client Creation Interface*/}
           <div className="mb-6">
             <div className="flex justify-between items-center">
               <label className="block text-gray-700">Client</label>
@@ -193,7 +192,7 @@ const CreateProjectModal = ({ isOpen, onClose, clients, projectToEdit }) => {
               </div>
             )}
           </div>
-          {/* === END CLIENT CREATION UI === */}
+          {/* END Client Creation Interface */}
 
           <div className="flex justify-end space-x-4">
             <button

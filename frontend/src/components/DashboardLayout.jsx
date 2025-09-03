@@ -23,6 +23,7 @@ const LogoutIcon = (props) => (
     height="16"
     fill="currentColor"
     viewBox="0 0 16 16"
+    {...props}
   >
     <path
       fillRule="evenodd"
@@ -63,7 +64,7 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <div
         onClick={() => setIsSidebarOpen(false)}
-        // Visiblity is used to allow for animations
+        //  Visiblity is used to allow for animations
         className={`fixed dashboard__sidebar__background ${
           isSidebarOpen ? "opacity-50 visible" : "opacity-0 invisible"
         } max-md:block hidden cursor-pointer max-md:bg-black size-full`}
