@@ -23,18 +23,36 @@ const ProjectDetails = () => {
     setIsTakEditModalOpen(false);
   };
   // Invoice Mutation
-  const [createInvoice, { loading: invoiceLoading, error: invoiceError }] =
-    useMutation(CREATE_STRIPE_INVOICE_MUTATION, {
-      onCompleted: (data) => {
-        // Open the Stripe invoice page in a new tab on success
-        if (data.createStripeInvoice.invoiceUrl) {
-          window.open(data.createStripeInvoice.invoiceUrl, "_blank");
-        }
+  const [
+    createInvoice,
+    { loading: invoiceLoading, error: invoiceError, createInvoiceClient },
+  ] = useMutation(CREATE_STRIPE_INVOICE_MUTATION, {
+    // Ensures that the ui is updated by pulling the fresh data regarding the invoice
+    refetchQueries: [
+      {
+        query: GET_PROJECT_BY_ID,
+        variables: { id: parseInt(id) },
       },
-      onError: (error) => {
-        alert(`Failed to create invoice: ${error.message}`);
-      },
-    });
+    ],
+    onCompleted: (data) => {
+      // Open the Stripe invoice page in a new tab on success
+      if (data.createStripeInvoice.invoiceUrl) {
+        window.open(data.createStripeInvoice.invoiceUrl, "_blank");
+      }
+    },
+    onError: (error) => {
+      alert(`Failed to create invoice: ${error.message}`);
+      // Refetch does it run on error, so to ensure the buttons and text are updated when a, invoice already paid error is raised we force a refetch.
+      createInvoiceClient.refetchQueries({
+        include: [
+          {
+            query: GET_PROJECT_BY_ID,
+            variables: { id: parseInt(id) },
+          },
+        ],
+      });
+    },
+  });
   if (loading) return <div className="p-8">Loading project details...</div>;
   if (error)
     return <div className="p-8 text-red-500">Error: {error.message}</div>;
@@ -67,15 +85,34 @@ const ProjectDetails = () => {
             <p className="mt-4 text-gray-700">{project.description}</p>
           )}
           <div className="mt-6 border-t pt-4">
-            <button
-              onClick={() =>
-                createInvoice({ variables: { projectId: project.id } })
-              }
-              disabled={invoiceLoading}
-              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
-            >
-              {invoiceLoading ? "Generating..." : "Generate Stripe Invoice"}
-            </button>
+            <div className="flex">
+              {!project?.invoice?.isPaid && (
+                <button
+                  onClick={() =>
+                    createInvoice({ variables: { projectId: project.id } })
+                  }
+                  disabled={invoiceLoading}
+                  className="px-4 py-2 bg-purple-600 text-white mr-2 rounded hover:bg-purple-700 transition"
+                >
+                  {invoiceLoading ? "Generating..." : "Generate Stripe Invoice"}
+                </button>
+              )}
+              {project?.invoice?.stripeInvoiceUrl && (
+                <a
+                  href={project.invoice.stripeInvoiceUrl}
+                  rel="noopener"
+                  target="_blank"
+                  className="button px-4 py-2 text-white rounded transition bg-green-500 hover:bg-green-600"
+                >
+                  View Invoice
+                </a>
+              )}
+            </div>
+            {project?.invoice?.isPaid && (
+              <p className="text-green-500 mt-2">
+                Invoice has been paid Successfully
+              </p>
+            )}
             {invoiceError && (
               <p className="text-red-500 mt-2">Error: {invoiceError.message}</p>
             )}
