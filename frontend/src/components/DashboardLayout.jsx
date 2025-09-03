@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { WHO_AM_I } from "../graphql/queries";
 import { useQuery } from "@apollo/client";
-
+import { Toaster } from "react-hot-toast";
 // A basic hamburger icon
 const MenuIcon = (props) => (
   <svg {...props} stroke="currentColor" fill="none" viewBox="0 0 24 24">

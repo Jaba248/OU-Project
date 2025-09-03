@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { Toaster } from "react-hot-toast";
 const LandingLayout = () => {
   const { isLoggedIn } = useAuth();
   return (
