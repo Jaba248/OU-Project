@@ -107,6 +107,8 @@
 -- Add gunicorn to requirements.txt
 -- Create a base Readme.md file
 -- Adjust subtle texts
+-- Create a test log
+-- Create a docs folder and move project log and test_log inside the docs folder, to keep actual project application files seperate from files related to documenting the journey
 -- Test Docker integration
 
 -- Test Host installation
