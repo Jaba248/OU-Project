@@ -89,6 +89,23 @@
 -- Refactor project ready for end of development stage
 -- Implement a Toast system, replacing all alerts
 
+05/09/2025
+-- Mark End of Development Side
+-- Start work on creating the production environment
+-- Create a base install.md file, nginx.conf file and .env.example
+
+07/09/2025
+-- Link graphiql to DEBUG status
+-- adapt django code to work with the provided environment variables
+-- add postgress python plugin
+-- allow the option to not use postgress
+-- create seperate nginx config files for docker and host install for simplicity
+--
+
+09/09/2025
+-- Commit Production files
+-- Test integrations
+
 ###Points for document
 -invoice pricing and wether it should be billed or not fields on tasks
 -Stripe invoice shows name ou Freelancer pms (ou included for personal reference on stripes system)
