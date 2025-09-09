@@ -104,7 +104,12 @@
 
 09/09/2025
 -- Commit Production files
--- Test integrations
+-- Add gunicorn to requirements.txt
+-- Create a base Readme.md file
+-- Adjust subtle texts
+-- Test Docker integration
+
+-- Test Host installation
 
 ###Points for document
 -invoice pricing and wether it should be billed or not fields on tasks
