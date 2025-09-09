@@ -173,7 +173,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 # Variables for production environment
-STATIC_ROOT = BASE_DIR / "staticfiles"  # system path to folder
+STATIC_ROOT = BASE_DIR / "static"  # system path to folder
 
 
 # Default primary key field type
