@@ -111,6 +111,9 @@
 -- Create a docs folder and move project log and test_log inside the docs folder, to keep actual project application files seperate from files related to documenting the journey
 -- Test Docker integration
 
+11/09/2025
+-- Use a different url on the frontend for graphql
+-- fix minor errors, refactor docker-compose and commit final test log for docker
 -- Test Host installation
 
 ###Points for document
