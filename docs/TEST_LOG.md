@@ -46,6 +46,27 @@
 ## 4) Docker install — step log
 
 1. Build and start
+
    ```bash
    docker compose up -d --build
+   Expected Output [All 4 containers running, frontend, backend, DB, nginx]
+   Output:
+    ✔ ou-project-backend               Built                                                                                                                                       0.0s
+    ✔ ou-project-frontend              Built                                                                                                                                       0.0s
+    ✔ Network ou-project_default       Created                                                                                                                                     0.0s
+    ✔ Container ou-project-db-1        Healthy                                                                                                                                     5.9s
+    ✔ Container ou-project-frontend-1  Started                                                                                                                                     0.4s
+    ✔ Container ou-project-backend-1   Started                                                                                                                                     6.0s
+    ✔ Container ou-project-nginx-1     Started
+
+    docker compose ps -a
+    Expected Output [Confirm all 4 containers are running]
+    Output:
+    ou-project-backend-1    ou-project-backend    "gunicorn project.ws…"   backend    8 seconds ago   Exited (3) 1 second ago
+    ou-project-db-1         postgres:16           "docker-entrypoint.s…"   db         9 seconds ago   Up 8 seconds (healthy)    5432/tcp
+    ou-project-frontend-1   ou-project-frontend   "docker-entrypoint.s…"   frontend   9 seconds ago   Up 8 seconds
+    ou-project-nginx-1      nginx:1.25            "/docker-entrypoint.…"   nginx      8 seconds ago   Up 2 seconds              0.0.0.0:80->80/tcp, [::]:80->80/tcp
+
+
+
    ```
