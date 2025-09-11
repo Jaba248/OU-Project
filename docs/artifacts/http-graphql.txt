@@ -1,0 +1,14 @@
+HTTP/1.1 400 Bad Request
+Server: nginx/1.25.5
+Date: Thu, 11 Sep 2025 13:47:59 GMT
+Content-Type: application/json
+Content-Length: 53
+Connection: keep-alive
+Vary: Cookie, origin
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+Set-Cookie: csrftoken=KdZH0MtEqQIupOxEGNYvS1GBt65bCT3X; expires=Thu, 10 Sep 2026 13:47:59 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+
+{"errors":[{"message":"Must provide query string."}]}

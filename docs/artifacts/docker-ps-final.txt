@@ -1,0 +1,5 @@
+NAME                    IMAGE                 COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+ou-project-backend-1    ou-project-backend    "gunicorn project.ws…"   backend    14 minutes ago   Up 14 minutes             8000/tcp
+ou-project-db-1         postgres:16           "docker-entrypoint.s…"   db         14 minutes ago   Up 14 minutes (healthy)   5432/tcp
+ou-project-frontend-1   ou-project-frontend   "docker-entrypoint.s…"   frontend   14 minutes ago   Up 14 minutes             
+ou-project-nginx-1      nginx:1.25            "/docker-entrypoint.…"   nginx      14 minutes ago   Up 14 minutes             0.0.0.0:80->80/tcp, [::]:80->80/tcp

@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Server: nginx/1.25.5
+Date: Thu, 11 Sep 2025 13:47:59 GMT
+Content-Type: text/html
+Content-Length: 459
+Last-Modified: Thu, 11 Sep 2025 13:36:06 GMT
+Connection: keep-alive
+ETag: "68c2d046-1cb"
+Accept-Ranges: bytes
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script type="module" crossorigin src="/assets/index-LYPAwJp1.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BVNTSQTq.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
