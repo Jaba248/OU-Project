@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
+import { API_URL } from "./config";
 // Apollo Graphql imports
 import {
   ApolloProvider,
@@ -15,7 +16,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 
 // Create link to connect to our backend api
 const httpLink = createHttpLink({
-  uri: "http://localhost:8000/graphql",
+  uri: API_URL,
 });
 
 // Add jwt token when the link is initiated, so it is attached to every call
