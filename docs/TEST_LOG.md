@@ -130,7 +130,7 @@ Outcomes:
 
 ---
 
-## 7) Host install (dry run)
+## 7) Development Test (dry run)
 
 Commands:
 
@@ -143,7 +143,24 @@ Outcome:
 
 ---
 
-## 8) Notes
+## 8) Host Install Test
+
+Commands:
+
+- python -m venv venv && source venv/bin/activate
+- pip install -r requirements.txt
+- export $(grep -v '^#' .env | xargs)
+- python manage.py migrate
+- python manage.py collectstatic --noinput
+- gunicorn project.wsgi:application -b 127.0.0.1:8000
+
+Outcome:
+
+- Django started successfully and was accessible on http://127.0.0.1:8000/admin
+- Verified /graphql endpoint returns 400 JSON when GET with no query string (expected)
+- Application behaviour matches Docker deployment.
+
+## 9) Notes
 
 - Docker Compose “version” key warning has been addressed in the compose file.
 - Production SPA uses `/graphql` (same-origin, via nginx). Development uses http://localhost:8000/graphql or VITE_API_URL if set.
@@ -151,7 +168,7 @@ Outcome:
 
 ---
 
-## 9) Conclusion
+## 10) Conclusion
 
 Docker-based deployment verified end-to-end:
 
