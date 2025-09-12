@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-$mgd++^k!)f&0u*^q1zhdg8k@n_&qxro!)-vnpttraoy)n1=i&
 IS_PRODUCTION = (
     os.getenv("IS_PRODUCTION", "false").lower() == "true"
 )  # Default to false
-USE_POSTGRES = os.getenv("USE_POSTGRES", "true").lower() == "true"
+USE_POSTGRES = os.getenv("USE_POSTGRES", "false").lower() == "true"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
