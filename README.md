@@ -42,5 +42,7 @@ docker compose exec backend python manage.py createsuperuser
 
 ---
 
+---
+
 **Submission note:**  
 This repository forms part of the TM470 End-of-Module Assessment submission by student O5560156.
