@@ -80,12 +80,12 @@
 -- Fix graphql submission bugs
 -- Fix create client inside create project, to deny invalid email addresses
 -- Extend Invoice system to store the invoice url, and allow the invoice to be viewed again.
---add logic to mark Invoice as paid, and store amount_paid
---Implement logic to void old invoice if a previous invoice had bene generated
+-- add logic to mark Invoice as paid, and store amount_paid
+-- Implement logic to void old invoice if a previous invoice had bene generated
 
 03/09/2025
 -- Extend tasks, to have a include on invoice field, and a price to be charged field to ensure a more complete experience
---Optimise navigation for mobile, converting the sidebar on mobile to a sliding drawer, while retaining the desktop functionality
+-- Optimise navigation for mobile, converting the sidebar on mobile to a sliding drawer, while retaining the desktop functionality
 -- Refactor project ready for end of development stage
 -- Implement a Toast system, replacing all alerts
 
@@ -100,7 +100,6 @@
 -- add postgress python plugin
 -- allow the option to not use postgress
 -- create seperate nginx config files for docker and host install for simplicity
---
 
 09/09/2025
 -- Commit Production files
@@ -115,13 +114,11 @@
 -- Use a different url on the frontend for graphql
 -- fix minor errors, refactor docker-compose and commit final test log for docker
 -- Test Host installation
+-- Capture docker logs, container status, graphql responses, and UI screenshots into /docs/artifacts for submission evidence.
 
-###Points for document
--invoice pricing and wether it should be billed or not fields on tasks
--Stripe invoice shows name ou Freelancer pms (ou included for personal reference on stripes system)
--Modals can be streamlined animations, single files, DRY, dissmissable backdrop
-
--- make a single form componenet and pass list
--- dashboard tasks page not implemented
--- invoice sent count on dashboard overview
---Timelog model not used or implemented anywhere
+12/09/2025
+-- Perform final fresh-clone sanity check for Docker and host install.
+-- Verify network tab shows all GraphQL requests via nginx /graphql.
+-- Confirm application functions end-to-end (client/project/task CRUD, invoice generation).
+-- Prepare final documentation and ensure all logs/screenshots are present.
+-- Project Development considered complete and ready to complete EMA write-up and submit.
